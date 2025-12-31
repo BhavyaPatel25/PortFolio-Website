@@ -30,7 +30,7 @@ const socials = [
   {
     icon: Github,
     label: 'GitHub',
-    href: 'https://github.com/bhavyapatel1000',
+    href: 'https://github.com/BhavyaPatel25/',
   },
 ];
 
