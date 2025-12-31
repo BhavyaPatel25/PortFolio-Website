@@ -40,7 +40,7 @@ const experiences = [
     description: 'Vision Transformer Research',
     details: [
       'Extracted 13K+ video frames from UCF-101 for deep learning model training',
-      'Optimized Vision Transformer (ViT) boosting accuracy from 84% to 94%',
+      'Optimized Vision Transformer (ViT) to improve sports action recognition performance',
       'Reduced validation loss by ~9% through hyperparameter optimization',
     ],
     color: 'primary',

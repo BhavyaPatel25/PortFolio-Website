@@ -81,8 +81,7 @@ export default function About() {
               <p className="text-lg text-muted-foreground leading-relaxed">
                 With hands-on experience in LLMs, Vision Transformers, and cloud-native ML pipelines, 
                 I've built AI-driven workflows that automate complex processes and deliver measurable impact.
-                My research on sports action recognition using Vision Transformers achieved 
-                <span className="text-foreground font-medium"> 94% classification accuracy</span> and was published at ICDSA 2024.
+                My research on sports action recognition using Vision Transformers was published at ICDSA 2024.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
                 Currently serving as a Teaching Assistant for Distributed Systems, I combine 

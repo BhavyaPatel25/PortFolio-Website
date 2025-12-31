@@ -31,7 +31,7 @@ const projects = [
     description: 'Novel ViT-based approach for multi-sport activity recognition across varied domains.',
     problem: 'Traditional CNNs struggle with temporal patterns in sports action videos.',
     solution: 'Optimized Vision Transformer architecture with hyperparameter tuning on 10K+ frames.',
-    impact: 'Achieved 94% accuracy, published in Springer at ICDSA 2024.',
+    impact: 'Published in Springer (ICDSA 2024).',
     tech: ['PyTorch', 'Vision Transformer', 'Python', 'UCF-101'],
     icon: Brain,
     gradient: 'from-primary via-secondary to-primary',
