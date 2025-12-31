@@ -114,7 +114,6 @@ export default function Hero() {
               { value: '2+', label: 'Years Experience' },
               { value: '1', label: 'Publication' },
               { value: '10+', label: 'AI Projects' },
-              { value: '94%', label: 'ViT Accuracy' },
             ].map((stat, i) => (
               <motion.div
                 key={stat.label}
