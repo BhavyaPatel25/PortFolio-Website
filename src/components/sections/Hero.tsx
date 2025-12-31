@@ -14,16 +14,11 @@ export default function Hero() {
       
       {/* Gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none" />
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[120px] pulse-glow" />
-      <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-secondary/20 rounded-full blur-[100px] pulse-glow" style={{ animationDelay: '-1.5s' }} />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/15 rounded-full blur-[150px] pulse-glow" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-secondary/15 rounded-full blur-[120px] pulse-glow" style={{ animationDelay: '-1.5s' }} />
       
-      <div className="container relative z-10 px-6 py-20 md:py-32">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="max-w-4xl mx-auto text-center"
-        >
+      <div className="container relative z-10 px-6 pt-32 pb-20 md:pt-40 md:pb-32">
+        <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -40,7 +35,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4"
+            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight"
           >
             Bhavya{' '}
             <span className="text-gradient">Patel</span>
@@ -51,7 +46,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="text-xl md:text-2xl lg:text-3xl text-muted-foreground mb-6"
+            className="text-xl md:text-2xl lg:text-3xl text-muted-foreground mb-6 font-medium"
           >
             AI Engineer & Applied ML Researcher
           </motion.h2>
@@ -61,7 +56,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
-            className="text-lg md:text-xl text-muted-foreground/80 max-w-2xl mx-auto mb-10 leading-relaxed"
+            className="text-base md:text-lg text-muted-foreground/80 max-w-xl mb-12 leading-relaxed"
           >
             Building intelligent systems at scale. Specializing in LLMs, Vision Transformers, 
             and production-grade ML pipelines. Research published in Springer.
@@ -72,34 +67,34 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="flex flex-wrap items-center justify-center gap-4"
           >
             <Button 
               variant="hero" 
-              size="xl"
+              size="lg"
               onClick={() => scrollToSection('projects')}
               className="group"
             >
               View Projects
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button 
               variant="heroOutline" 
-              size="xl"
+              size="lg"
               asChild
             >
               <a href="/Bhavya_Patel_Resume.pdf" download>
-                <Download className="w-5 h-5" />
-                Download Resume
+                <Download className="w-4 h-4" />
+                Resume
               </a>
             </Button>
             <Button 
               variant="glass" 
-              size="xl"
+              size="lg"
               onClick={() => scrollToSection('contact')}
             >
-              <Mail className="w-5 h-5" />
-              Contact Me
+              <Mail className="w-4 h-4" />
+              Contact
             </Button>
           </motion.div>
           
@@ -108,7 +103,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
-            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10"
+            className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 w-full max-w-2xl"
           >
             {[
               { value: '2+', label: 'Years Experience' },
@@ -126,28 +121,28 @@ export default function Hero() {
                 <div className="text-3xl md:text-4xl font-bold text-gradient mb-1">
                   {stat.value}
                 </div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
+                <div className="text-xs md:text-sm text-muted-foreground">{stat.label}</div>
               </motion.div>
             ))}
           </motion.div>
-        </motion.div>
+        </div>
         
         {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 0.5 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
         >
           <motion.div
-            animate={{ y: [0, 10, 0] }}
+            animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex items-start justify-center p-2"
+            className="w-5 h-8 rounded-full border-2 border-muted-foreground/30 flex items-start justify-center p-1.5"
           >
             <motion.div
-              animate={{ y: [0, 12, 0] }}
+              animate={{ y: [0, 8, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-1.5 h-3 bg-primary rounded-full"
+              className="w-1 h-2 bg-primary rounded-full"
             />
           </motion.div>
         </motion.div>
