@@ -25,16 +25,43 @@ const certifications = [
     title: 'Fundamentals of Digital Image and Video Processing',
     issuer: 'Coursera – Northwestern University',
     description: 'Signal processing, motion estimation, and video compression using MATLAB and Python.',
+    link: 'https://www.coursera.org/account/accomplishments/verify/M5XESR2N4ZRS',
   },
   {
     title: 'Architecting Smart IoT Devices',
     issuer: 'Coursera – EIT Digital',
     description: 'IoT system design, sensor integration, edge computing, and secure communication protocols.',
+    link: 'https://www.coursera.org/account/accomplishments/verify/Z65TH9SXR54Z',
   },
   {
     title: 'Flutter Development with UI/UX',
     issuer: 'Inspire Cyber Security',
     description: 'Cross-platform apps with Firebase backend and intuitive UI/UX design.',
+    link: '/Flutter_Certificate.pdf',
+  },
+  {
+    title: 'Complete Machine Learning & Data Science Bootcamp 2023',
+    issuer: 'Udemy',
+    description: 'Comprehensive ML/DS training covering algorithms, neural networks, and practical projects.',
+    link: 'https://www.udemy.com/certificate/UC-7b5941b7-bd44-479f-af93-406b110adda2/',
+  },
+  {
+    title: 'Java Programming Masterclass covering Java 11 & Java 17',
+    issuer: 'Udemy',
+    description: 'Advanced Java programming including modern features, OOP, and best practices.',
+    link: 'https://www.udemy.com/certificate/UC-0291acf9-475f-47a8-b58b-f73efca25f11/',
+  },
+  {
+    title: '100 Days of Code: The Complete Python Pro Bootcamp',
+    issuer: 'Udemy',
+    description: 'Comprehensive Python training from basics to advanced applications and automation.',
+    link: 'https://www.udemy.com/certificate/UC-927b7167-6ab5-4dfd-8b1e-ad9f0a7b9e93/',
+  },
+  {
+    title: 'TensorFlow Developer Certificate: Zero to Mastery',
+    issuer: 'Udemy',
+    description: 'Deep learning with TensorFlow, CNNs, RNNs, and deployment strategies.',
+    link: 'https://www.udemy.com/certificate/UC-634f84af-0eb2-4112-8926-0579e6e0c478/',
   },
 ];
 
@@ -155,21 +182,27 @@ export default function Publications() {
               </motion.h3>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-4">
+            <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
               {certifications.map((cert, index) => (
-                <motion.div
+                <motion.a
                   key={cert.title}
+                  href={cert.link}
+                  target={cert.link.startsWith('/') ? '_self' : '_blank'}
+                  rel="noopener noreferrer"
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                  className="glass glass-hover rounded-xl p-6 group"
+                  className="glass glass-hover rounded-xl p-6 group cursor-pointer block"
                 >
-                  <h4 className="font-semibold mb-2 group-hover:text-primary transition-colors">
+                  <h4 className="font-semibold mb-2 group-hover:text-primary transition-colors text-sm">
                     {cert.title}
                   </h4>
-                  <p className="text-sm text-secondary mb-3">{cert.issuer}</p>
-                  <p className="text-sm text-muted-foreground">{cert.description}</p>
-                </motion.div>
+                  <p className="text-xs text-secondary mb-3">{cert.issuer}</p>
+                  <p className="text-xs text-muted-foreground">{cert.description}</p>
+                  <span className="inline-flex items-center gap-1 text-xs text-primary mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                    View Certificate <ExternalLink className="w-3 h-3" />
+                  </span>
+                </motion.a>
               ))}
             </div>
           </div>
