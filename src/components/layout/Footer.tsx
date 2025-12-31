@@ -26,6 +26,16 @@ export default function Footer() {
             </p>
           </div>
 
+          {/* Built with */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="text-sm text-muted-foreground flex items-center gap-1"
+          >
+            Built with <Heart className="w-4 h-4 text-primary fill-primary" /> using React & Three.js
+          </motion.p>
+
           {/* Social links */}
           <div className="flex gap-3">
             {socials.map((social) => (
