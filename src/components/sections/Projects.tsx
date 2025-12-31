@@ -1,6 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { ExternalLink, Github, Play, Brain, Eye, Video } from 'lucide-react';
+import { Github, Brain, Eye, Video, Smartphone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const projects = [
@@ -14,6 +14,7 @@ const projects = [
     icon: Video,
     gradient: 'from-primary to-secondary',
     featured: true,
+    github: 'https://github.com/BhavyaPatel25/Multilingual-Script-Generation',
   },
   {
     title: 'Museum View Detection AI',
@@ -25,21 +26,36 @@ const projects = [
     icon: Eye,
     gradient: 'from-secondary to-primary',
     featured: true,
+    github: 'https://github.com/BhavyaPatel25/Museum-View-Detection',
   },
   {
-    title: 'Vision Transformer Sports Recognition',
-    description: 'Novel ViT-based approach for multi-sport activity recognition across varied domains.',
-    problem: 'Traditional CNNs struggle with temporal patterns in sports action videos.',
-    solution: 'Optimized Vision Transformer architecture with hyperparameter tuning on 10K+ frames.',
-    impact: 'Achieved 94% accuracy, published in Springer at ICDSA 2024.',
-    tech: ['PyTorch', 'Vision Transformer', 'Python', 'UCF-101'],
-    icon: Brain,
+    title: 'Palm Box Cricket',
+    description: 'Flutter-based mobile booking application enabling 100% digital slot reservations for a live cricket facility.',
+    problem: 'Manual booking workflows caused scheduling conflicts and inefficiencies for the cricket facility.',
+    solution: 'Engineered end-to-end booking and availability management flows with real-time slot selection and confirmations.',
+    impact: 'Improved booking efficiency by ~40%, reduced scheduling conflicts, and increased user engagement by ~35%.',
+    tech: ['Flutter', 'Dart', 'Firebase', 'Mobile Development'],
+    icon: Smartphone,
     gradient: 'from-primary via-secondary to-primary',
     featured: true,
+    github: 'https://github.com/BhavyaPatel25/Palm-Box-Cricket',
   },
 ];
 
-function ProjectCard({ project, index, isInView }: { project: typeof projects[0]; index: number; isInView: boolean }) {
+interface Project {
+  title: string;
+  description: string;
+  problem: string;
+  solution: string;
+  impact: string;
+  tech: string[];
+  icon: typeof Video;
+  gradient: string;
+  featured: boolean;
+  github: string;
+}
+
+function ProjectCard({ project, index, isInView }: { project: Project; index: number; isInView: boolean }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -100,13 +116,16 @@ function ProjectCard({ project, index, isInView }: { project: typeof projects[0]
 
         {/* Actions */}
         <div className="flex gap-3 mt-auto">
-          <Button variant="outline" size="sm" className="flex-1" disabled>
-            <Github className="w-4 h-4 mr-2" />
-            Code
-          </Button>
-          <Button variant="default" size="sm" className="flex-1" disabled>
-            <Play className="w-4 h-4 mr-2" />
-            Demo
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="flex-1" 
+            asChild
+          >
+            <a href={project.github} target="_blank" rel="noopener noreferrer">
+              <Github className="w-4 h-4 mr-2" />
+              View Code
+            </a>
           </Button>
         </div>
       </div>
@@ -147,7 +166,6 @@ export default function Projects() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="text-3xl md:text-4xl lg:text-5xl font-bold mt-3"
             >
-              AI/ML{' '}
               <span className="text-gradient">Projects</span>
             </motion.h2>
             <motion.p
