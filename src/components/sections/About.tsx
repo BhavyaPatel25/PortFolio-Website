@@ -73,21 +73,21 @@ export default function About() {
               className="space-y-6"
             >
               <p className="text-lg text-muted-foreground leading-relaxed">
-                I'm a graduate student at <span className="text-foreground font-medium">Concordia University</span> specializing 
-                in AI, Machine Learning, and Data Science. My journey bridges the gap between 
-                <span className="text-primary"> cutting-edge research</span> and 
-                <span className="text-secondary"> production-ready systems</span>.
+                I am a graduate student in Applied Computer Science at <span className="text-foreground font-medium">Concordia University</span>, 
+                specializing in Artificial Intelligence, Machine Learning, and Data Science. With over two years of experience across 
+                academic research and industry projects, I focus on building practical, scalable AI systems that translate complex 
+                ideas into real-world solutions.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                With hands-on experience in LLMs, Vision Transformers, and cloud-native ML pipelines, 
-                I've built AI-driven workflows that automate complex processes and deliver measurable impact.
-                My research on sports action recognition using Vision Transformers achieved 
-                <span className="text-foreground font-medium"> 94% classification accuracy</span> and was published at ICDSA 2024.
+                My work spans <span className="text-primary">machine learning, deep learning, large language models, and computer vision</span>, 
+                using tools such as Python, TensorFlow, PyTorch, and LangChain. I have hands-on experience deploying AI solutions on 
+                cloud platforms including <span className="text-secondary">AWS Bedrock, SageMaker, and Azure ML</span>, with an emphasis 
+                on end-to-end pipelines from data to deployment.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Currently serving as a Teaching Assistant for Distributed Systems, I combine 
-                my passion for teaching with deep technical expertise in building scalable, 
-                intelligent systems.
+                Alongside technical depth, I bring strong communication and leadership skills developed through teaching, research, 
+                and collaborative projects. I am driven by continuous learning and enjoy working at the intersection of intelligent 
+                systems, real-world impact, and thoughtful design.
               </p>
             </motion.div>
 

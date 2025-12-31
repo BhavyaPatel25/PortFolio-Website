@@ -103,13 +103,12 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
-            className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 w-full max-w-2xl"
+            className="mt-20 grid grid-cols-3 gap-8 md:gap-16 w-full max-w-xl"
           >
             {[
               { value: '2+', label: 'Years Experience' },
               { value: '1', label: 'Publication' },
               { value: '10+', label: 'AI Projects' },
-              { value: '94%', label: 'ViT Accuracy' },
             ].map((stat, i) => (
               <motion.div
                 key={stat.label}
