@@ -13,7 +13,7 @@ const skillCategories = [
     title: 'AI & Machine Learning',
     icon: Brain,
     color: 'primary',
-    skills: ['TensorFlow', 'PyTorch', 'LangChain', 'Hugging Face', 'Scikit-learn', 'NLP', 'Computer Vision', 'LLMs'],
+    skills: ['TensorFlow', 'PyTorch', 'LangChain', 'Hugging Face', 'Scikit-learn', 'NLP', 'Computer Vision', 'LLMs', 'N8N', 'RAG'],
   },
   {
     title: 'Programming',
@@ -25,13 +25,13 @@ const skillCategories = [
     title: 'Cloud & DevOps',
     icon: Cloud,
     color: 'primary',
-    skills: ['AWS Bedrock', 'AWS SageMaker', 'Azure ML', 'Docker', 'Git/GitHub', 'CI/CD', 'REST APIs', 'Linux'],
+    skills: ['AWS Bedrock', 'AWS SageMaker', 'Docker', 'Git/GitHub', 'CI/CD', 'REST APIs', 'Linux'],
   },
   {
     title: 'Frameworks & Tools',
     icon: Layers,
     color: 'secondary',
-    skills: ['Django', 'Flutter', 'Streamlit', 'PostgreSQL', 'MongoDB', 'Vector DBs', 'Firebase', 'RAG'],
+    skills: ['Django', 'Flutter', 'Streamlit', 'Vector DBs', 'Firebase'],
   },
 ];
 
