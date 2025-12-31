@@ -17,7 +17,7 @@ export default function Hero() {
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[120px] pulse-glow" />
       <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-secondary/20 rounded-full blur-[100px] pulse-glow" style={{ animationDelay: '-1.5s' }} />
       
-      <div className="container relative z-10 px-6 py-20 md:py-32">
+      <div className="flex flex-col items-center justify-center min-h-screen">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
