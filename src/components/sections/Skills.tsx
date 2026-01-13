@@ -13,25 +13,25 @@ const skillCategories = [
     title: 'AI & Machine Learning',
     icon: Brain,
     color: 'primary',
-    skills: ['TensorFlow', 'PyTorch', 'LangChain', 'Hugging Face', 'Scikit-learn', 'NLP', 'Computer Vision', 'LLMs', 'N8N', 'RAG'],
+    skills: ['TensorFlow', 'PyTorch', 'LangChain', 'LangGraph', 'Vector DBs', 'Hugging Face', 'Prompt Engineering', 'Data Analytics', 'Scikit-learn', 'NLP', 'Computer Vision', 'LLMs', 'N8N', 'RAG'],
   },
   {
     title: 'Programming',
     icon: Code2,
     color: 'secondary',
-    skills: ['Python', 'Java', 'C++', 'SQL', 'Shell', 'TypeScript', 'Dart', 'MATLAB'],
+    skills: ['Python', 'Java', 'C', 'C++', 'SQL', 'Shell', 'Dart', 'MATLAB'],
   },
   {
     title: 'Cloud & DevOps',
     icon: Cloud,
     color: 'primary',
-    skills: ['AWS Bedrock', 'AWS SageMaker', 'Docker', 'Git/GitHub', 'CI/CD', 'REST APIs', 'Linux'],
+    skills: ['AWS Bedrock', 'AWS SageMaker', 'Docker', 'Git/GitHub', 'REST APIs', 'Linux'],
   },
   {
     title: 'Frameworks & Tools',
     icon: Layers,
     color: 'secondary',
-    skills: ['Django', 'Flutter', 'Streamlit', 'Vector DBs', 'Firebase'],
+    skills: ['Django', 'Flutter', 'Web Scraping', 'UI/UX','Streamlit', 'Firebase'],
   },
 ];
 

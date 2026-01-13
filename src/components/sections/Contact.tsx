@@ -43,10 +43,10 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     toast.success('Message sent! I\'ll get back to you soon.');
     setFormData({ name: '', email: '', message: '' });
     setIsSubmitting(false);
@@ -57,7 +57,7 @@ export default function Contact() {
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       <div className="absolute -right-40 top-1/3 w-80 h-80 bg-primary/10 rounded-full blur-[100px]" />
       <div className="absolute -left-40 bottom-1/4 w-80 h-80 bg-secondary/10 rounded-full blur-[100px]" />
-      
+
       <div className="container px-6" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -99,103 +99,138 @@ export default function Contact() {
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-8"
+              transition={{ duration: 0.6 }}
+              className="space-y-10"
             >
-              <div className="space-y-4">
-                {contactInfo.map((item, index) => (
-                  <motion.div
-                    key={item.label}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={isInView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                    className="flex items-center gap-4 group"
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center group-hover:bg-primary/10 transition-colors">
-                      <item.icon className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground">{item.label}</p>
-                      {item.href ? (
-                        <a
-                          href={item.href}
-                          className="text-foreground hover:text-primary transition-colors"
-                        >
-                          {item.value}
-                        </a>
-                      ) : (
-                        <p className="text-foreground">{item.value}</p>
-                      )}
-                    </div>
-                  </motion.div>
-                ))}
+              {/* Email */}
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center">
+                  <Mail className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Email</p>
+                  <p className="text-foreground font-medium">
+                    bhavyarpatel22@gmail.com
+                  </p>
+                </div>
               </div>
 
-              {/* Social links */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.6 }}
-                className="pt-6 border-t border-border"
-              >
-                <p className="text-sm text-muted-foreground mb-4">Connect with me</p>
-                <div className="flex gap-3">
-                  {socials.map((social) => (
-                    <a
-                      key={social.label}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 rounded-xl glass glass-hover flex items-center justify-center group"
-                    >
-                      <social.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                    </a>
-                  ))}
+              {/* Location */}
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center">
+                  <MapPin className="w-5 h-5 text-primary" />
                 </div>
-              </motion.div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Location</p>
+                  <p className="text-foreground font-medium">
+                    Montreal, Quebec, Canada
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-6 border-t border-border space-y-4">
+                <p className="text-sm text-muted-foreground">Connect with me</p>
+                <div className="flex gap-3">
+                  <a
+                    href="https://www.linkedin.com/in/bhavyapatel1000"
+                    target="_blank"
+                    className="w-12 h-12 rounded-xl glass flex items-center justify-center"
+                  >
+                    <Linkedin className="w-5 h-5 text-muted-foreground hover:text-primary" />
+                  </a>
+                  <a
+                    href="https://github.com/BhavyaPatel25/"
+                    target="_blank"
+                    className="w-12 h-12 rounded-xl glass flex items-center justify-center"
+                  >
+                    <Github className="w-5 h-5 text-muted-foreground hover:text-primary" />
+                  </a>
+                </div>
+              </div>
             </motion.div>
+
 
             {/* Contact form */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: 0.6 }}
             >
-              <form onSubmit={handleSubmit} className="glass rounded-2xl p-8 space-y-6">
+              <form
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                netlify-honeypot="bot-field"
+                onSubmit={handleSubmit}
+                className="glass rounded-2xl p-8 space-y-6 border border-border/50"
+              >
+                {/* Netlify hidden fields */}
+                <input type="hidden" name="form-name" value="contact" />
+                <p className="hidden">
+                  <label>
+                    Don’t fill this out: <input name="bot-field" />
+                  </label>
+                </p>
+                {/* CENTERED TITLE */}
+                <div className="text-center mb-4 -mt-2">
+                  <h3 className="text-2xl md:text-3xl font-bold tracking-tight leading-tight">
+                    Contact <span className="text-gradient">Him</span>
+                  </h3>
+                </div>
+
                 <div className="grid sm:grid-cols-2 gap-4">
+
                   <div>
-                    <label className="text-sm text-muted-foreground mb-2 block">Name</label>
+                    <label className="text-sm text-muted-foreground mb-2 block">
+                      Name
+                    </label>
                     <Input
+                      name="name"
                       placeholder="Your name"
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
                       required
-                      className="bg-muted border-border focus:border-primary"
+                      className="bg-muted/60"
                     />
                   </div>
+
                   <div>
-                    <label className="text-sm text-muted-foreground mb-2 block">Email</label>
+                    <label className="text-sm text-muted-foreground mb-2 block">
+                      Email
+                    </label>
                     <Input
                       type="email"
+                      name="email"
                       placeholder="your@email.com"
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
                       required
-                      className="bg-muted border-border focus:border-primary"
+                      className="bg-muted/60"
                     />
                   </div>
                 </div>
+
                 <div>
-                  <label className="text-sm text-muted-foreground mb-2 block">Message</label>
+                  <label className="text-sm text-muted-foreground mb-2 block">
+                    Message
+                  </label>
                   <Textarea
+                    name="message"
                     placeholder="Tell me about your project or opportunity..."
                     rows={5}
                     value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, message: e.target.value })
+                    }
                     required
-                    className="bg-muted border-border focus:border-primary resize-none"
+                    className="bg-muted/60 resize-none"
                   />
                 </div>
+
                 <Button
                   type="submit"
                   variant="hero"
@@ -208,12 +243,13 @@ export default function Contact() {
                   ) : (
                     <>
                       Send Message
-                      <Send className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                      <Send className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
                     </>
                   )}
                 </Button>
               </form>
             </motion.div>
+
           </div>
         </motion.div>
       </div>

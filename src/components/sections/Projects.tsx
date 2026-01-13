@@ -1,6 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Github, Brain, Eye, Video, Smartphone } from 'lucide-react';
+import { Github, Brain, Eye, Video, Smartphone, BotMessageSquare, Server } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const projects = [
@@ -40,6 +40,31 @@ const projects = [
     featured: true,
     github: 'https://github.com/BhavyaPatel25/Palm-Box-Cricket',
   },
+  {
+    title: 'RAG Chatbot',
+    description: 'An end-to-end RAG-based chatbot that enables users to ask natural language questions and receive accurate, context-aware answers grounded in their own documents using vector databases and large language models.',
+    problem: 'Conventional chatbots lack access to private or domain-specific data, resulting in hallucinations and unreliable document-based responses.',
+    solution: 'Implemented a Retrieval-Augmented Generation pipeline that embeds documents, retrieves relevant context via semantic search, and generates precise answers using an LLM in real time.',
+    impact: 'Significantly improved response accuracy and reliability by grounding outputs in retrieved documents, enabling scalable and trustworthy knowledge access.',
+    tech: ['Python', 'LangChain', 'Ollama', 'FASTAPI', 'ChromaDB'],
+    icon: BotMessageSquare,
+    gradient: 'from-primary to-secondary',
+    featured: true,
+    github: 'https://github.com/BhavyaPatel25/rag_chatbot',
+  },
+  {
+  title: 'Distributed Stock Market System',
+  description: 'A fault-tolerant distributed stock market management system implementing replication, sequencing, and frontend coordination to ensure consistency, availability, and reliability across multiple server replicas.',
+  problem: 'Single-server stock trading systems are prone to failures, inconsistencies, and downtime, making them unsuitable for high-availability and distributed environments.',
+  solution: 'Designed a distributed architecture with a sequencer, frontend interface, and multiple replicated backend servers. Requests are ordered via a sequencer and processed across replicas, enabling fault tolerance, consistency, and reliable client-server communication.',
+  impact: 'Ensured high availability and consistency through replication and request sequencing, simulating real-world distributed system behavior suitable for enterprise-scale transaction processing.',
+  tech: ['Java', 'Distributed Systems', 'Socket Programming', 'Gradle', 'Replication'],
+  icon: Server,
+  gradient: 'from-secondary to-primary',
+  featured: true,
+  github: 'https://github.com/BhavyaPatel25/Distributed-Share-Market',
+}
+
 ];
 
 interface Project {
