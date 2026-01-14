@@ -1,43 +1,42 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bhavya Patel Portfolio</title>
-    <meta name="description" content="Bhavya Patel Portfolio" />
-    <meta name="author" content="Bhavya Patel" />
 
-    <meta property="og:title" content="Bhavya Patel Portfolio" />
-    <meta property="og:description" content="Bhavya Patel Portfolio" />
-    <meta property="og:type" content="website" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bhavya Patel Portfolio</title>
+  <meta name="description" content="Bhavya Patel Portfolio" />
+  <meta name="author" content="Bhavya Patel" />
 
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <meta property="og:title" content="Bhavya Patel Portfolio" />
+  <meta property="og:description" content="Bhavya Patel Portfolio" />
+  <meta property="og:type" content="website" />
 
-    <meta property="og:image" content="/favicon.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Lovable" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
-  <body>
+  <meta property="og:image" content="/favicon.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@Lovable" />
+  <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+</head>
 
-    <!-- 🔴 Netlify static form (REQUIRED for detection) -->
-    <form
-      name="contact"
-      method="POST"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
-      hidden
-    >
-      <input type="hidden" name="form-name" value="contact" />
-      <input type="text" name="name" />
-      <input type="email" name="email" />
-      <textarea name="message"></textarea>
-    </form>
-    <!-- 🔴 End Netlify static form -->
+<body>
 
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+  <!-- 🔴 Netlify static form (REQUIRED for detection) -->
+  <form name="contact" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" onSubmit={handleSubmit}
+    className="glass rounded-2xl p-8 space-y-6 border border-border/50">
+
+
+    <input type="hidden" name="form-name" value="contact" />
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <textarea name="message"></textarea>
+  </form>
+  <!-- 🔴 End Netlify static form -->
+
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>
