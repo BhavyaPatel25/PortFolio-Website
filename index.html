@@ -24,10 +24,7 @@
 <body>
 
   <!-- 🔴 Netlify static form (REQUIRED for detection) -->
-  <form name="contact" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" onSubmit={handleSubmit}
-    className="glass rounded-2xl p-8 space-y-6 border border-border/50">
-
-
+  <form name="contact" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" style="display:none">
     <input type="hidden" name="form-name" value="contact" />
     <input type="text" name="name" />
     <input type="email" name="email" />
