@@ -83,7 +83,7 @@ export default function Hero() {
               size="lg"
               asChild
             >
-              <a href="/Bhavya_Patel_Resume.pdf" download>
+              <a href="public\Bhavya Patel Resume.pdf" download>
                 <Download className="w-4 h-4" />
                 Resume
               </a>
@@ -108,7 +108,7 @@ export default function Hero() {
             {[
               { value: '2+', label: 'Years Experience' },
               { value: '1', label: 'Publication' },
-              { value: '5+', label: 'AI Projects' },
+              { value: '3+', label: 'AI Projects' },
             ].map((stat, i) => (
               <motion.div
                 key={stat.label}

@@ -16,7 +16,7 @@ export default function About() {
     {
       icon: Briefcase,
       title: 'Experience',
-      description: '2+ Years in AI/ML Engineering',
+      description: '2 Years in AI/ML Engineering',
     },
     {
       icon: BookOpen,
