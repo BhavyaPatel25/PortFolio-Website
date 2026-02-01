@@ -271,21 +271,6 @@ export default function InteractiveHero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center"
-      >
-        <p className="text-sm text-muted-foreground mb-2">Scroll to explore</p>
-        <div className="w-6 h-10 border-2 border-primary/50 rounded-full flex justify-center p-2 mx-auto">
-          <motion.div
-            animate={{ y: [0, 4, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="w-1 h-2 bg-primary rounded-full"
-          />
-        </div>
-      </motion.div>
     </div>
   );
 }
