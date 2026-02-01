@@ -68,6 +68,11 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'gradient-cyber': 'linear-gradient(135deg, #1c003c 0%, #2d0052 25%, #003d5c 50%, #1c003c 75%, #2d0052 100%)',
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -102,8 +107,16 @@ export default {
           "100%": { transform: "rotate(360deg) translateX(120px) rotate(-360deg)" },
         },
         "glow-pulse": {
-          "0%, 100%": { boxShadow: "0 0 20px hsl(var(--primary) / 0.3)" },
-          "50%": { boxShadow: "0 0 40px hsl(var(--primary) / 0.6)" },
+          "0%, 100%": { boxShadow: "0 0 30px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--secondary) / 0.2)" },
+          "50%": { boxShadow: "0 0 50px hsl(var(--primary) / 0.7), 0 0 80px hsl(var(--secondary) / 0.4)" },
+        },
+        "neon-flicker": {
+          "0%, 100%": { textShadow: "0 0 10px hsl(280 100% 67%), 0 0 20px hsl(180 100% 50%)" },
+          "50%": { textShadow: "0 0 5px hsl(280 100% 67%), 0 0 10px hsl(180 100% 50%)" },
+        },
+        "shimmer": {
+          "0%": { backgroundPosition: "-1000px 0" },
+          "100%": { backgroundPosition: "1000px 0" },
         },
       },
       animation: {
@@ -116,6 +129,8 @@ export default {
         "spin-slow": "spin-slow 20s linear infinite",
         "orbit": "orbit 15s linear infinite",
         "glow-pulse": "glow-pulse 3s ease-in-out infinite",
+        "neon-flicker": "neon-flicker 3s ease-in-out infinite",
+        "shimmer": "shimmer 2s infinite",
       },
     },
   },
