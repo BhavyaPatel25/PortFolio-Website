@@ -7,6 +7,7 @@ import { HelmetProvider } from "react-helmet-async";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Chatbot from "./components/Chatbot";
+import TechParticles from "./components/ui/TechParticles";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +17,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
+        <TechParticles isActive={true} />
 
         <BrowserRouter>
           <Routes>

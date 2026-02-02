@@ -179,9 +179,6 @@ export default function InteractiveHero() {
               }
             }}
           >
-            <span className="w-3 h-3 bg-primary rounded-full animate-pulse" />
-            <span className="text-sm font-medium text-muted-foreground">Click me - Interactive particle system</span>
-            <span className="text-xs opacity-0 group-hover:opacity-100 transition-opacity">← Try it!</span>
           </motion.div>
 
           {/* Main heading with stagger */}
