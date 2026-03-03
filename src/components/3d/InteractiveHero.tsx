@@ -235,6 +235,14 @@ export default function InteractiveHero() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="px-8 py-3 rounded-lg border-2 border-primary/50 font-semibold text-white hover:bg-primary/10 transition-all"
+              onClick={() => {
+                const link = document.createElement('a');
+                link.href = '/Bhavya Patel Resume.pdf';
+                link.download = 'Bhavya Patel Resume.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+              }}
             >
               Download Resume
             </motion.button>
