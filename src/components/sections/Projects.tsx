@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, TrendingUp } from 'lucide-react';
+import { Github } from 'lucide-react';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 
 interface Project {
@@ -267,23 +267,6 @@ export default function Projects() {
           </motion.div>
 
           {/* View all CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
-            className="text-center mt-16"
-          >
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-bold text-lg hover:shadow-lg transition-all shadow-lg shadow-primary/30"
-            >
-              <TrendingUp className="w-5 h-5" />
-              Get In Touch
-            </motion.a>
-          </motion.div>
         </motion.div>
       </div>
     </section>

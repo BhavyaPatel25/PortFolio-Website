@@ -4,7 +4,8 @@ import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-const API_URL = "https://rag-chatbot-api-pixd.onrender.com/chat";
+const API_BASE = "https://rag-chatbot-api-pixd.onrender.com";
+const API_URL = `${API_BASE}/chat`;
 
 type Message = {
   role: "user" | "assistant";
@@ -18,6 +19,11 @@ export default function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  // Pre-warm the API on page load so it's ready when the user opens the chatbot
+  useEffect(() => {
+    fetch(API_BASE, { method: "GET" }).catch(() => {});
+  }, []);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
