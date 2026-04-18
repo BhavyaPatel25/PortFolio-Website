@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
+import FloatingShapes from '@/components/ui/FloatingShapes';
 
 const contactInfo = [
   {
@@ -78,11 +79,14 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-24 md:py-32 relative overflow-hidden">
+      {/* Animated floating shapes background */}
+      <FloatingShapes />
+
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       <div className="absolute -right-40 top-1/3 w-80 h-80 bg-primary/10 rounded-full blur-[100px]" />
       <div className="absolute -left-40 bottom-1/4 w-80 h-80 bg-secondary/10 rounded-full blur-[100px]" />
 
-      <div className="container px-6" ref={ref}>
+      <div className="container px-6 relative z-10" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

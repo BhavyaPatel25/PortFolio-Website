@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Github } from 'lucide-react';
 import ScrollReveal from '@/components/ui/ScrollReveal';
+import ProjectCard3D from '@/components/3d/ProjectCards3D';
 
 interface Project {
   id: string;
@@ -75,111 +76,6 @@ const projects: Project[] = [
 
 const categories = ['All', ...new Set(projects.map(p => p.category))];
 
-function ProjectCard({ project, index, isHovered, setHovered }: any) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1 }}
-      onMouseEnter={() => setHovered(project.id)}
-      onMouseLeave={() => setHovered(null)}
-      className="group relative"
-    >
-      <div className={`glass rounded-2xl overflow-hidden border border-primary/20 group-hover:border-primary/60 transition-all duration-300 p-6 h-full flex flex-col`}>
-        {/* Animated background gradient on hover */}
-        <motion.div 
-          className={`absolute inset-0 bg-gradient-to-br ${project.accentColor} opacity-0 group-hover:opacity-5`}
-          transition={{ duration: 0.3 }}
-        />
-
-        {/* Content */}
-        <div className="relative z-10">
-          {/* Header with icon and metrics */}
-          <div className="flex items-start justify-between mb-4">
-            <motion.div 
-              className={`text-4xl p-3 rounded-xl bg-gradient-to-br ${project.accentColor} opacity-80`}
-              whileHover={{ scale: 1.1, rotate: 5 }}
-            >
-              {project.icon}
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 10 }}
-              animate={isHovered === project.id ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.2 }}
-              className="text-xs font-semibold text-accent"
-            >
-              {project.category}
-            </motion.div>
-          </div>
-
-          {/* Title */}
-          <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-gradient transition-all">
-            {project.title}
-          </h3>
-
-          {/* Description */}
-          <p className="text-sm text-muted-foreground/90 mb-4 leading-relaxed">
-            {project.description}
-          </p>
-
-          {/* Metrics - Show on hover */}
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={isHovered === project.id ? { opacity: 1, height: 'auto' } : {}}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden mb-4"
-          >
-            {project.metrics && (
-              <div className="flex flex-wrap gap-2 pb-4">
-                {project.metrics.map((metric, i) => (
-                  <motion.span
-                    key={i}
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: i * 0.05 }}
-                    className={`text-xs px-2 py-1 rounded-full bg-gradient-to-r ${project.accentColor} text-white font-semibold`}
-                  >
-                    {metric}
-                  </motion.span>
-                ))}
-              </div>
-            )}
-          </motion.div>
-
-          {/* Tech tags */}
-          <div className="flex flex-wrap gap-2 mb-6">
-            {project.tags.map((tag) => (
-              <span
-                key={tag}
-                className="px-2 py-1 text-xs rounded-md glass border border-primary/30 text-muted-foreground hover:text-primary transition-colors"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          {/* Action buttons */}
-          <div className="mt-auto">
-            {project.github && (
-              <motion.a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full px-6 py-3 rounded-lg glass border border-primary/30 hover:border-primary/60 hover:bg-primary/10 transition-all flex items-center justify-center gap-2 font-semibold text-base group/btn"
-              >
-                <Github className="w-5 h-5 group-hover/btn:text-primary" />
-                <span>Code</span>
-              </motion.a>
-            )}
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
 
 export default function Projects() {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -248,19 +144,17 @@ export default function Projects() {
             </div>
           </ScrollReveal>
 
-          {/* Projects grid */}
+          {/* Projects grid with 3D cards */}
           <motion.div
             layout
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             <AnimatePresence mode="popLayout">
               {filteredProjects.map((project, index) => (
-                <ProjectCard
+                <ProjectCard3D
                   key={project.id}
                   project={project}
                   index={index}
-                  isHovered={hoveredProject}
-                  setHovered={setHoveredProject}
                 />
               ))}
             </AnimatePresence>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import SkillsGlobe from '@/components/3d/SkillsGlobe';
 
 interface Skill {
   name: string;
@@ -69,8 +70,10 @@ export default function Skills() {
   const categories = Array.from(new Set(skillsDatabase.map(s => s.category))) as Array<keyof typeof categoryInfo>;
 
   return (
-    <section id="skills" className="py-16 md:py-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="skills" className="py-16 md:py-20 relative overflow-hidden">
+      <SkillsGlobe />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent pointer-events-none" />
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

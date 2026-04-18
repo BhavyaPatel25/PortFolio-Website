@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import HeroEnhanced from '@/components/3d/HeroEnhanced';
 
 interface Particle {
   x: number;
@@ -147,11 +148,14 @@ export default function InteractiveHero() {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Canvas background */}
+      {/* Enhanced 3D background */}
+      <HeroEnhanced />
+
+      {/* Legacy canvas overlay for particle effects */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at center, rgba(132,0,255,0.1) 0%, rgba(10,15,26,0) 70%)' }}
+        style={{ background: 'transparent' }}
       />
 
       {/* Content overlay */}

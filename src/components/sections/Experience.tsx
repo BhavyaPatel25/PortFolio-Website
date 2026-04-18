@@ -1,6 +1,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { Briefcase, GraduationCap, ChevronDown } from 'lucide-react';
+import FloatingShapes from '@/components/ui/FloatingShapes';
 
 const experiences = [
   {
@@ -170,10 +171,14 @@ export default function Experience() {
 
   return (
     <section id="experience" className="py-24 md:py-32 relative overflow-hidden">
+      {/* Animated floating shapes background */}
+      <FloatingShapes />
+
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       <div className="absolute -left-40 top-1/2 w-80 h-80 bg-primary/10 rounded-full blur-[100px]" />
-      
-      <div className="container px-6" ref={ref}>
+      <div className="absolute -right-40 bottom-1/3 w-96 h-96 bg-secondary/10 rounded-full blur-[100px]" />
+
+      <div className="container px-6 relative z-10" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import { GraduationCap, Briefcase, BookOpen, Award } from 'lucide-react';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import { InteractiveCard } from '@/components/ui/InteractiveCard';
+import WaveBackground from '@/components/ui/WaveBackground';
 
 export default function About() {
   const ref = useRef(null);
@@ -38,11 +39,15 @@ export default function About() {
 
   return (
     <section id="about" className="py-24 md:py-32 relative overflow-hidden">
+      {/* Animated wave background */}
+      <WaveBackground />
+
       {/* Background elements */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       <div className="absolute -left-40 top-1/2 w-80 h-80 bg-primary/10 rounded-full blur-[100px]" />
-      
-      <div className="container px-6" ref={ref}>
+      <div className="absolute -right-40 bottom-1/3 w-96 h-96 bg-secondary/10 rounded-full blur-[100px]" />
+
+      <div className="container px-6 relative z-10" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

@@ -145,6 +145,32 @@
   .neon-text {
     text-shadow: 0 0 10px hsl(280 100% 67%), 0 0 20px hsl(180 100% 50%);
   }
+
+  .float-3d {
+    animation: float-3d 8s ease-in-out infinite;
+  }
+
+  .shimmer {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    background-size: 1000px 100%;
+    animation: shimmer 3s infinite;
+  }
+
+  .glow-pulse {
+    animation: glow-pulse 4s ease-in-out infinite;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
 }
 
 @keyframes floating {
@@ -173,6 +199,39 @@
   }
   50% {
     background-position: 100% 50%;
+  }
+}
+
+@keyframes float-3d {
+  0%, 100% {
+    transform: translateY(0) rotateX(0) rotateY(0);
+  }
+  25% {
+    transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+  }
+  50% {
+    transform: translateY(-5px) rotateX(-5deg) rotateY(-5deg);
+  }
+  75% {
+    transform: translateY(-15px) rotateX(3deg) rotateY(-3deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(132, 0, 255, 0.3), 0 0 40px rgba(0, 217, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(132, 0, 255, 0.5), 0 0 80px rgba(0, 217, 255, 0.4);
   }
 }
 

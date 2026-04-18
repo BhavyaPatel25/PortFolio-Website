@@ -8,6 +8,7 @@ import Experience from '@/components/sections/Experience';
 import Projects from '@/components/sections/Projects';
 import Publications from '@/components/sections/Publications';
 import Contact from '@/components/sections/Contact';
+import ScrollParticles from '@/components/ui/ScrollParticles';
 
 export default function Index() {
   return (
@@ -26,6 +27,7 @@ export default function Index() {
       </Helmet>
 
       <div className="min-h-screen">
+        <ScrollParticles />
         <Navbar />
         <main>
           <Hero />
