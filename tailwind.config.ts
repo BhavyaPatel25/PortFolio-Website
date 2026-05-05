@@ -71,7 +71,7 @@ export default {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'gradient-cyber': 'linear-gradient(135deg, #1c003c 0%, #2d0052 25%, #003d5c 50%, #1c003c 75%, #2d0052 100%)',
+        'gradient-cyber': 'linear-gradient(135deg, #001a3c 0%, #002952 25%, #003d5c 50%, #001a3c 75%, #002952 100%)',
       },
       keyframes: {
         "accordion-down": {
@@ -111,8 +111,8 @@ export default {
           "50%": { boxShadow: "0 0 50px hsl(var(--primary) / 0.7), 0 0 80px hsl(var(--secondary) / 0.4)" },
         },
         "neon-flicker": {
-          "0%, 100%": { textShadow: "0 0 10px hsl(280 100% 67%), 0 0 20px hsl(180 100% 50%)" },
-          "50%": { textShadow: "0 0 5px hsl(280 100% 67%), 0 0 10px hsl(180 100% 50%)" },
+          "0%, 100%": { textShadow: "0 0 10px hsl(220 100% 60%), 0 0 20px hsl(180 100% 50%)" },
+          "50%": { textShadow: "0 0 5px hsl(220 100% 60%), 0 0 10px hsl(180 100% 50%)" },
         },
         "shimmer": {
           "0%": { backgroundPosition: "-1000px 0" },

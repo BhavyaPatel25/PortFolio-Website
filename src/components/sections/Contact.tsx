@@ -83,8 +83,6 @@ export default function Contact() {
       <FloatingShapes />
 
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-      <div className="absolute -right-40 top-1/3 w-80 h-80 bg-primary/10 rounded-full blur-[100px]" />
-      <div className="absolute -left-40 bottom-1/4 w-80 h-80 bg-secondary/10 rounded-full blur-[100px]" />
 
       <div className="container px-6 relative z-10" ref={ref}>
         <motion.div
@@ -161,16 +159,20 @@ export default function Contact() {
                   <a
                     href="https://www.linkedin.com/in/bhavyapatel1000"
                     target="_blank"
-                    className="w-12 h-12 rounded-xl glass flex items-center justify-center"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn profile"
+                    className="w-12 h-12 rounded-xl glass flex items-center justify-center hover:bg-primary/10 transition-colors"
                   >
-                    <Linkedin className="w-5 h-5 text-muted-foreground hover:text-primary" />
+                    <Linkedin className="w-5 h-5 text-muted-foreground group-hover:text-primary" />
                   </a>
                   <a
                     href="https://github.com/BhavyaPatel25/"
                     target="_blank"
-                    className="w-12 h-12 rounded-xl glass flex items-center justify-center"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub profile"
+                    className="w-12 h-12 rounded-xl glass flex items-center justify-center hover:bg-primary/10 transition-colors"
                   >
-                    <Github className="w-5 h-5 text-muted-foreground hover:text-primary" />
+                    <Github className="w-5 h-5 text-muted-foreground group-hover:text-primary" />
                   </a>
                 </div>
               </div>

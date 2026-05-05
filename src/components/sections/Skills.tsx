@@ -1,66 +1,81 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import SkillsGlobe from '@/components/3d/SkillsGlobe';
+import {
+  SiTensorflow, SiPytorch, SiLangchain, SiHuggingface,
+  SiPython, SiJavascript, SiTypescript, SiDart,
+  SiDocker, SiKubernetes, SiGit, SiLinux,
+  SiReact, SiDjango, SiFastapi, SiTailwindcss, SiFlutter, SiStreamlit, SiFirebase,
+  SiScikitlearn, SiN8n,
+} from '@icons-pack/react-simple-icons';
+import {
+  Database, Eye, Bot, Search, BarChart3, Terminal, Cloud, GitMerge,
+  Globe, Palette, Code, Coffee, Network, Sparkles, Plug,
+} from 'lucide-react';
 
 interface Skill {
   name: string;
-  icon: string;
+  icon: React.ReactNode;
   category: 'ai-ml' | 'languages' | 'devops' | 'frameworks';
 }
 
+const S = ({ children }: { children: React.ReactNode }) => (
+  <span className="w-4 h-4 flex items-center justify-center flex-shrink-0">{children}</span>
+);
+
 const skillsDatabase: Skill[] = [
   // AI & Machine Learning
-  { name: 'TensorFlow', icon: '🧠', category: 'ai-ml' },
-  { name: 'PyTorch', icon: '🔥', category: 'ai-ml' },
-  { name: 'LangChain', icon: '💬', category: 'ai-ml' },
-  { name: 'LangGraph', icon: '🔀', category: 'ai-ml' },
-  { name: 'Vector DBs', icon: '📊', category: 'ai-ml' },
-  { name: 'Hugging Face', icon: '🤗', category: 'ai-ml' },
-  { name: 'NLP', icon: '📝', category: 'ai-ml' },
-  { name: 'Computer Vision', icon: '👁️', category: 'ai-ml' },
-  { name: 'LLMs', icon: '🤖', category: 'ai-ml' },
-  { name: 'Prompt Engineering', icon: '✨', category: 'ai-ml' },
-  { name: 'Data Analytics', icon: '📈', category: 'ai-ml' },
-  { name: 'Scikit-learn', icon: '🎯', category: 'ai-ml' },
-  { name: 'RAG', icon: '🔍', category: 'ai-ml' },
-  { name: 'N8N', icon: '⚙️', category: 'ai-ml' },
+  { name: 'TensorFlow', icon: <S><SiTensorflow /></S>, category: 'ai-ml' },
+  { name: 'PyTorch', icon: <S><SiPytorch /></S>, category: 'ai-ml' },
+  { name: 'LangChain', icon: <S><SiLangchain /></S>, category: 'ai-ml' },
+  { name: 'LangGraph', icon: <S><Network className="w-3.5 h-3.5" /></S>, category: 'ai-ml' },
+  { name: 'Vector DBs', icon: <S><Database className="w-3.5 h-3.5" /></S>, category: 'ai-ml' },
+  { name: 'Hugging Face', icon: <S><SiHuggingface /></S>, category: 'ai-ml' },
+  { name: 'NLP', icon: <S><Bot className="w-3.5 h-3.5" /></S>, category: 'ai-ml' },
+  { name: 'Computer Vision', icon: <S><Eye className="w-3.5 h-3.5" /></S>, category: 'ai-ml' },
+  { name: 'LLMs', icon: <S><Bot className="w-3.5 h-3.5" /></S>, category: 'ai-ml' },
+  { name: 'Prompt Engineering', icon: <S><Sparkles className="w-3.5 h-3.5" /></S>, category: 'ai-ml' },
+  { name: 'Data Analytics', icon: <S><BarChart3 className="w-3.5 h-3.5" /></S>, category: 'ai-ml' },
+  { name: 'Scikit-learn', icon: <S><SiScikitlearn /></S>, category: 'ai-ml' },
+  { name: 'RAG', icon: <S><Search className="w-3.5 h-3.5" /></S>, category: 'ai-ml' },
+  { name: 'N8N', icon: <S><SiN8n /></S>, category: 'ai-ml' },
 
   // Programming Languages
-  { name: 'Python', icon: '🐍', category: 'languages' },
-  { name: 'Java', icon: '☕', category: 'languages' },
-  { name: 'JavaScript', icon: '⚡', category: 'languages' },
-  { name: 'TypeScript', icon: '📘', category: 'languages' },
-  { name: 'C/C++', icon: '⚙️', category: 'languages' },
-  { name: 'SQL', icon: '🗄️', category: 'languages' },
-  { name: 'Shell', icon: '🖥️', category: 'languages' },
-  { name: 'Dart', icon: '🎯', category: 'languages' },
+  { name: 'Python', icon: <S><SiPython /></S>, category: 'languages' },
+  { name: 'Java', icon: <S><Coffee className="w-3.5 h-3.5" /></S>, category: 'languages' },
+  { name: 'JavaScript', icon: <S><SiJavascript /></S>, category: 'languages' },
+  { name: 'TypeScript', icon: <S><SiTypescript /></S>, category: 'languages' },
+  { name: 'C/C++', icon: <S><Code className="w-3.5 h-3.5" /></S>, category: 'languages' },
+  { name: 'SQL', icon: <S><Database className="w-3.5 h-3.5" /></S>, category: 'languages' },
+  { name: 'Shell', icon: <S><Terminal className="w-3.5 h-3.5" /></S>, category: 'languages' },
+  { name: 'Dart', icon: <S><SiDart /></S>, category: 'languages' },
 
   // Cloud & DevOps
-  { name: 'Docker', icon: '🐳', category: 'devops' },
-  { name: 'AWS', icon: '☁️', category: 'devops' },
-  { name: 'Git/GitHub', icon: '🔗', category: 'devops' },
-  { name: 'Kubernetes', icon: '☸️', category: 'devops' },
-  { name: 'CI/CD', icon: '🚀', category: 'devops' },
-  { name: 'Linux', icon: '🐧', category: 'devops' },
-  { name: 'REST APIs', icon: '🔌', category: 'devops' },
+  { name: 'Docker', icon: <S><SiDocker /></S>, category: 'devops' },
+  { name: 'AWS', icon: <S><Cloud className="w-3.5 h-3.5" /></S>, category: 'devops' },
+  { name: 'Git/GitHub', icon: <S><SiGit /></S>, category: 'devops' },
+  { name: 'Kubernetes', icon: <S><SiKubernetes /></S>, category: 'devops' },
+  { name: 'CI/CD', icon: <S><GitMerge className="w-3.5 h-3.5" /></S>, category: 'devops' },
+  { name: 'Linux', icon: <S><SiLinux /></S>, category: 'devops' },
+  { name: 'REST APIs', icon: <S><Plug className="w-3.5 h-3.5" /></S>, category: 'devops' },
 
   // Frameworks & Tools
-  { name: 'React', icon: '⚛️', category: 'frameworks' },
-  { name: 'Django', icon: '🎸', category: 'frameworks' },
-  { name: 'FastAPI', icon: '⚡', category: 'frameworks' },
-  { name: 'Tailwind CSS', icon: '🎨', category: 'frameworks' },
-  { name: 'Flutter', icon: '📱', category: 'frameworks' },
-  { name: 'Streamlit', icon: '🔷', category: 'frameworks' },
-  { name: 'Firebase', icon: '🔥', category: 'frameworks' },
-  { name: 'Web Scraping', icon: '🕷️', category: 'frameworks' },
-  { name: 'UI/UX Design', icon: '🎭', category: 'frameworks' },
+  { name: 'React', icon: <S><SiReact /></S>, category: 'frameworks' },
+  { name: 'Django', icon: <S><SiDjango /></S>, category: 'frameworks' },
+  { name: 'FastAPI', icon: <S><SiFastapi /></S>, category: 'frameworks' },
+  { name: 'Tailwind CSS', icon: <S><SiTailwindcss /></S>, category: 'frameworks' },
+  { name: 'Flutter', icon: <S><SiFlutter /></S>, category: 'frameworks' },
+  { name: 'Streamlit', icon: <S><SiStreamlit /></S>, category: 'frameworks' },
+  { name: 'Firebase', icon: <S><SiFirebase /></S>, category: 'frameworks' },
+  { name: 'Web Scraping', icon: <S><Globe className="w-3.5 h-3.5" /></S>, category: 'frameworks' },
+  { name: 'UI/UX Design', icon: <S><Palette className="w-3.5 h-3.5" /></S>, category: 'frameworks' },
 ];
 
 const categoryInfo = {
-  'ai-ml': { label: 'AI & Machine Learning', icon: '🧠', color: 'from-purple-500/20 to-pink-500/20 border-purple-500/30' },
-  'languages': { label: 'Languages', icon: '💻', color: 'from-blue-500/20 to-cyan-500/20 border-blue-500/30' },
-  'devops': { label: 'Cloud & DevOps', icon: '☁️', color: 'from-orange-500/20 to-yellow-500/20 border-orange-500/30' },
-  'frameworks': { label: 'Frameworks', icon: '🛠️', color: 'from-green-500/20 to-emerald-500/20 border-green-500/30' },
+  'ai-ml': { label: 'AI & Machine Learning', icon: <Bot className="w-4 h-4" />, color: 'from-blue-500/20 to-cyan-500/20 border-blue-500/30' },
+  'languages': { label: 'Languages', icon: <Code className="w-4 h-4" />, color: 'from-sky-500/20 to-blue-500/20 border-sky-500/30' },
+  'devops': { label: 'Cloud & DevOps', icon: <Cloud className="w-4 h-4" />, color: 'from-cyan-500/20 to-teal-500/20 border-cyan-500/30' },
+  'frameworks': { label: 'Frameworks', icon: <Globe className="w-4 h-4" />, color: 'from-indigo-500/20 to-blue-500/20 border-indigo-500/30' },
 };
 
 export default function Skills() {
@@ -79,7 +94,7 @@ export default function Skills() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-12"
+          className="mb-12"
         >
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2">
             <span className="text-gradient">Skills</span> & Expertise
@@ -109,14 +124,14 @@ export default function Skills() {
                   onClick={() => setExpandedCategory(expandedCategory === category ? null : category)}
                   className="w-full flex items-center gap-2 mb-3 hover:opacity-80 transition"
                 >
-                  <span className="text-xl">{info.icon}</span>
+                  <span className="text-primary">{info.icon}</span>
                   <span className="font-bold text-foreground">{info.label}</span>
                   <span className="text-xs text-muted-foreground ml-auto">
                     {categorySkills.length} skills
                   </span>
                   <motion.span
                     animate={{ rotate: isExpanded ? 180 : 0 }}
-                    className="text-primary"
+                    className="text-primary text-xs"
                   >
                     ▼
                   </motion.span>
@@ -125,7 +140,7 @@ export default function Skills() {
                 {/* Skills Grid */}
                 <motion.div
                   initial={false}
-                  animate={{ 
+                  animate={{
                     height: isExpanded ? 'auto' : 0,
                     opacity: isExpanded ? 1 : 0,
                   }}
@@ -135,20 +150,20 @@ export default function Skills() {
                   <div className="flex flex-wrap gap-2">
                     {categorySkills.map((skill, idx) => {
                       return (
-                        <motion.button
+                        <motion.div
                           key={skill.name}
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: idx * 0.02 }}
                           onMouseEnter={() => setHoveredSkill(skill.name)}
                           onMouseLeave={() => setHoveredSkill(null)}
-                          whileHover={{ scale: 1.08 }}
                           className="relative group"
                         >
                           <motion.div
-                            className={`px-3 py-1.5 rounded-full bg-gradient-to-r from-primary/60 to-secondary/60 border border-white/20 flex items-center gap-1 cursor-pointer transition-all text-xs font-medium hover:from-primary to-secondary`}
+                            whileHover={{ scale: 1.08 }}
+                            className="px-3 py-1.5 rounded-full bg-gradient-to-r from-primary/60 to-secondary/60 border border-white/20 flex items-center gap-1.5 cursor-pointer transition-all text-xs font-medium hover:from-primary hover:to-secondary"
                           >
-                            <span>{skill.icon}</span>
+                            {skill.icon}
                             <span>{skill.name}</span>
                           </motion.div>
 
@@ -163,7 +178,7 @@ export default function Skills() {
                               <p className="font-semibold text-foreground">{skill.name}</p>
                             </motion.div>
                           )}
-                        </motion.button>
+                        </motion.div>
                       );
                     })}
                   </div>
@@ -178,14 +193,13 @@ export default function Skills() {
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-12 flex flex-wrap gap-3 justify-center text-sm"
+          className="mt-12 flex flex-wrap gap-3 text-sm"
         >
           {[
-            { label: 'Total Skills', value: skillsDatabase.length, icon: '⭐' },
-            { label: 'Categories', value: categories.length, icon: '📂' },
+            { label: 'Total Skills', value: skillsDatabase.length },
+            { label: 'Categories', value: categories.length },
           ].map((stat) => (
             <div key={stat.label} className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted border border-primary/20">
-              <span>{stat.icon}</span>
               <span className="text-muted-foreground">{stat.label}:</span>
               <span className="font-bold text-primary">{stat.value}</span>
             </div>

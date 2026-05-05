@@ -87,10 +87,7 @@ export default function Projects() {
 
   return (
     <section id="projects" className="py-24 md:py-32 relative overflow-hidden">
-      {/* Background elements */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-      <div className="absolute -right-40 top-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[120px]" />
-      <div className="absolute -left-40 bottom-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-[120px]" />
 
       <div className="container px-6 relative z-10">
         <motion.div
@@ -101,7 +98,7 @@ export default function Projects() {
           className="max-w-7xl mx-auto"
         >
           {/* Section header */}
-          <div className="text-center mb-16">
+          <div className="mb-16">
             <ScrollReveal direction="up">
               <motion.span
                 className="inline-block px-4 py-2 rounded-full glass mb-4 text-sm font-medium text-accent"
@@ -117,7 +114,7 @@ export default function Projects() {
             </ScrollReveal>
 
             <ScrollReveal direction="up" delay={0.2}>
-              <p className="text-base md:text-lg text-muted-foreground/90 max-w-2xl mx-auto">
+              <p className="text-base md:text-lg text-muted-foreground/90 max-w-2xl">
                 End-to-end solutions from AI pipelines to distributed systems
               </p>
             </ScrollReveal>
@@ -145,20 +142,38 @@ export default function Projects() {
           </ScrollReveal>
 
           {/* Projects grid with 3D cards */}
-          <motion.div
-            layout
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            <AnimatePresence mode="popLayout">
-              {filteredProjects.map((project, index) => (
-                <ProjectCard3D
-                  key={project.id}
-                  project={project}
-                  index={index}
-                />
-              ))}
-            </AnimatePresence>
-          </motion.div>
+          {filteredProjects.length === 0 ? (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-center py-20"
+            >
+              <p className="text-muted-foreground mb-6 text-lg">No projects in this category yet.</p>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setSelectedCategory('All')}
+                className="px-6 py-2.5 rounded-lg bg-gradient-to-r from-primary to-secondary text-white font-semibold"
+              >
+                View All Projects
+              </motion.button>
+            </motion.div>
+          ) : (
+            <motion.div
+              layout
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+              <AnimatePresence mode="popLayout">
+                {filteredProjects.map((project, index) => (
+                  <ProjectCard3D
+                    key={project.id}
+                    project={project}
+                    index={index}
+                  />
+                ))}
+              </AnimatePresence>
+            </motion.div>
+          )}
 
           {/* View all CTA */}
         </motion.div>

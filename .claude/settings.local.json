@@ -3,7 +3,22 @@
     "allow": [
       "Bash(npm run *)",
       "Bash(git commit *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Skill(design-shotgun)",
+      "Bash(python3 *)",
+      "Bash('/c/Users/Bhavya Patel/.claude/skills/gstack/browse/dist/browse' goto 'file:///c/Users/Bhavya Patel/.gstack/projects/BhavyaPatel25-PortFolio-Website/designs/portfolio-redesign-20260505/finalized.html')",
+      "Bash(cygpath -w \"/c/Users/Bhavya Patel/.gstack/projects/BhavyaPatel25-PortFolio-Website/designs/portfolio-redesign-20260505/finalized.html\")",
+      "Bash(echo \"C:\\\\\\\\Users\\\\\\\\Bhavya Patel\\\\\\\\.gstack\\\\\\\\projects\\\\\\\\BhavyaPatel25-PortFolio-Website\\\\\\\\designs\\\\\\\\portfolio-redesign-20260505\\\\\\\\finalized.html\")",
+      "Bash(powershell.exe -Command 'Start-Process '\\\\''__TRACKED_VAR__'\\\\''')",
+      "Bash(cmd.exe /c 'start \"\" \"__TRACKED_VAR__\"')",
+      "Bash(powershell.exe -NonInteractive -Command \"& { Start-Process 'C:\\\\Users\\\\Bhavya Patel\\\\.gstack\\\\projects\\\\BhavyaPatel25-PortFolio-Website\\\\designs\\\\portfolio-redesign-20260505\\\\finalized.html' }\")",
+      "Read(//c/Users/Bhavya Patel/.claude/skills/gstack/browse/**)",
+      "Bash(npx playwright *)",
+      "Bash('/c/Users/Bhavya Patel/.claude/skills/gstack/browse/dist/browse' goto file:///c/Users/Bhavya%20Patel/.gstack/projects/BhavyaPatel25-PortFolio-Website/designs/portfolio-redesign-20260505/finalized.html)",
+      "Bash('/c/Users/Bhavya Patel/.claude/skills/gstack/browse/dist/browse' screenshot /tmp/preview-1440.png --width 1440)",
+      "Bash('/c/Users/Bhavya Patel/.claude/skills/gstack/browse/dist/browse' goto file:///C:/Users/Bhavya%20Patel/.gstack/projects/BhavyaPatel25-PortFolio-Website/designs/portfolio-redesign-20260505/finalized.html)",
+      "Bash('/c/Users/Bhavya Patel/.claude/skills/gstack/browse/dist/browse' goto http://localhost:9191/design-preview.html)",
+      "Bash('/c/Users/Bhavya Patel/.claude/skills/gstack/browse/dist/browse' help)"
     ]
   },
   "enableAllProjectMcpServers": true,

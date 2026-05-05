@@ -32,9 +32,9 @@ export default function Index() {
         <main>
           <Hero />
           <About />
-          <Skills />
           <Experience />
           <Projects />
+          <Skills />
           <Publications />
           <Contact />
         </main>

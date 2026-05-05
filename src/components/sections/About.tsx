@@ -42,10 +42,7 @@ export default function About() {
       {/* Animated wave background */}
       <WaveBackground />
 
-      {/* Background elements */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-      <div className="absolute -left-40 top-1/2 w-80 h-80 bg-primary/10 rounded-full blur-[100px]" />
-      <div className="absolute -right-40 bottom-1/3 w-96 h-96 bg-secondary/10 rounded-full blur-[100px]" />
 
       <div className="container px-6 relative z-10" ref={ref}>
         <motion.div
@@ -55,7 +52,7 @@ export default function About() {
           className="max-w-6xl mx-auto"
         >
           {/* Section header */}
-          <div className="text-center mb-16">
+          <div className="mb-16">
             <ScrollReveal direction="up">
               <motion.span
                 className="inline-block px-4 py-2 rounded-full glass mb-4 text-sm font-medium text-primary"
@@ -71,7 +68,7 @@ export default function About() {
             </ScrollReveal>
 
             <ScrollReveal direction="up" delay={0.2}>
-              <p className="text-base md:text-lg text-muted-foreground/90 max-w-2xl mx-auto">
+              <p className="text-base md:text-lg text-muted-foreground/90 max-w-2xl">
                 With a passion for machine learning and a drive to solve complex problems, I'm dedicated to creating intelligent systems that make a real impact.
               </p>
             </ScrollReveal>

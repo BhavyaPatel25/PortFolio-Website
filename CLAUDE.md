@@ -36,6 +36,17 @@ Single-page portfolio for Bhavya Patel (AI Engineer & ML Researcher). Built with
 | `src/components/ui/` | ShadCN primitives + custom animated primitives (ScrollReveal, InteractiveCard, ExpandableCard, TechParticles, FloatingShapes, ScrollParticles, WaveBackground, Modal) |
 | `src/hooks/` | use-mobile (breakpoint), use-toast |
 
+### Hero rendering stack (important)
+
+`InteractiveHero` is not just a 3D wrapper — it owns the hero text/JSX content, a 2D Canvas API animation loop (grid + mouse-trail particles), and embeds `HeroEnhanced` (the R3F scene) behind it. `Hero.tsx` is a thin `<section>` shell. The full concurrent rendering stack on the page:
+
+1. `TechParticles` — fixed `<canvas>` from `App.tsx`, always active
+2. `ScrollParticles` — scroll-triggered effects, mounted by `Index.tsx`
+3. `HeroEnhanced` — R3F/WebGL canvas (`absolute inset-0 -z-10` inside hero)
+4. `InteractiveHero` canvas — 2D canvas overlay for mouse particles + grid
+
+Modifying the hero requires understanding all four layers. The hero name/CTA/stats JSX lives in `InteractiveHero.tsx:150–283`, not in `Hero.tsx`.
+
 ### Key patterns
 
 - **Section content** is declared as `const` arrays at the top of each section file — no external data layer.
@@ -43,7 +54,24 @@ Single-page portfolio for Bhavya Patel (AI Engineer & ML Researcher). Built with
 - **`InteractiveCard`** applies a mouse-move tilt/highlight effect; used heavily in About.
 - **`Chatbot`** calls an external RAG API at `https://rag-chatbot-api-pixd.onrender.com/chat`. It pre-warms the API with a GET request on mount (the server sleeps on inactivity).
 - **Contact form** uses Netlify form handling (`encode()` helper in `Contact.tsx`).
-- The global `TechParticles` canvas sits as a fixed overlay behind content.
+- **Scroll-spy section IDs**: `home`, `about`, `skills`, `experience`, `projects`, `publications`, `contact` — all used by `Navbar.tsx` and CTA buttons.
+
+### Design system
+
+Custom utility classes defined in `src/index.css` (not in `tailwind.config`):
+
+| Class | Effect |
+|-------|--------|
+| `glass` | Frosted-glass card: `bg-card/40 backdrop-blur-2xl border border-border/40` |
+| `text-gradient` | Violet → cyan → red gradient text via `background-clip: text` |
+| `glow-primary/secondary/accent` | Box-shadow glow in primary/secondary/accent color |
+| `gradient-border` | Animated gradient border using `background-clip: border-box` |
+
+Color tokens (HSL): `primary` = violet `280 100% 67%`, `secondary` = cyan `180 100% 50%`, `accent` = red `0 100% 67%`. Fonts: `Space Grotesk` (body/display), `JetBrains Mono` (monospace).
+
+### Static assets
+
+`public/` contains `Bhavya Patel Resume.pdf` (linked from hero Download button) and `Flutter_Certificate.pdf`. Referenced directly as `/Bhavya Patel Resume.pdf` — note the space in the filename.
 
 ## gstack
 

@@ -47,12 +47,6 @@ const certifications = [
     link: 'https://www.udemy.com/certificate/UC-7b5941b7-bd44-479f-af93-406b110adda2/',
   },
   {
-    title: 'Java Programming Masterclass covering Java 11 & Java 17',
-    issuer: 'Udemy',
-    description: 'Advanced Java programming including modern features, OOP, and best practices.',
-    link: 'https://www.udemy.com/certificate/UC-0291acf9-475f-47a8-b58b-f73efca25f11/',
-  },
-  {
     title: '100 Days of Code: The Complete Python Pro Bootcamp',
     issuer: 'Udemy',
     description: 'Comprehensive Python training from basics to advanced applications and automation.',
@@ -76,8 +70,6 @@ export default function Publications() {
       <FloatingShapes />
 
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-      <div className="absolute -left-40 top-1/2 w-80 h-80 bg-secondary/10 rounded-full blur-[100px]" />
-      <div className="absolute -right-40 bottom-1/3 w-96 h-96 bg-primary/10 rounded-full blur-[100px]" />
 
       <div className="container px-6 relative z-10" ref={ref}>
         <motion.div
@@ -88,7 +80,7 @@ export default function Publications() {
         >
           {/* Publications */}
           <div className="mb-24">
-            <div className="text-center mb-16">
+            <div className="mb-16">
               <motion.span
                 initial={{ opacity: 0, y: 10 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}

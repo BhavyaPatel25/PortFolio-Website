@@ -40,7 +40,7 @@ export default function InteractiveHero() {
 
       // Create particles around cursor
       if (Math.random() > 0.8) {
-        const colors = ['#8400FF', '#00D9FF', '#FF6B6B', '#00FF88'];
+        const colors = ['#0066FF', '#00D9FF', '#00AAFF', '#00FF88'];
         particlesRef.current.push({
           x: e.clientX + (Math.random() - 0.5) * 100,
           y: e.clientY + (Math.random() - 0.5) * 100,
@@ -72,7 +72,7 @@ export default function InteractiveHero() {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Draw background grid
-      ctx.strokeStyle = 'rgba(132, 0, 255, 0.05)';
+      ctx.strokeStyle = 'rgba(0, 102, 255, 0.05)';
       ctx.lineWidth = 1;
       const gridSize = 50;
       for (let x = 0; x < canvas.width; x += gridSize) {
@@ -129,7 +129,7 @@ export default function InteractiveHero() {
 
       // Draw cursor circle
       const cursorSize = 20 + scrollVelocity * 0.5;
-      ctx.strokeStyle = 'rgba(132, 0, 255, 0.3)';
+      ctx.strokeStyle = 'rgba(0, 102, 255, 0.3)';
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.arc(mouseRef.current.x, mouseRef.current.y, cursorSize, 0, Math.PI * 2);
@@ -168,7 +168,7 @@ export default function InteractiveHero() {
             transition={{ delay: 0.1, duration: 0.6 }}
             className="inline-flex items-center gap-3 px-6 py-3 rounded-full glass mb-12 cursor-pointer group hover:glow-primary transition-all"
             onClick={() => {
-              const colors = ['#8400FF', '#00D9FF', '#FF6B6B', '#00FF88'];
+              const colors = ['#0066FF', '#00D9FF', '#00AAFF', '#00FF88'];
               for (let i = 0; i < 30; i++) {
                 particlesRef.current.push({
                   x: window.innerWidth / 2,
@@ -183,6 +183,8 @@ export default function InteractiveHero() {
               }
             }}
           >
+            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse flex-shrink-0" />
+            <span className="text-sm font-medium text-foreground/90">Open to AI/ML Roles</span>
           </motion.div>
 
           {/* Main heading with stagger */}
