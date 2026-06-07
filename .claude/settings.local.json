@@ -39,7 +39,8 @@
       "Bash(git branch *)",
       "Bash(npm uninstall *)",
       "Skill(land-and-deploy)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(grep -r \"variant=\\\\\"glass\\\\\"\\\\|variant={'glass'}\\\\|variant=\\\\`glass\\\\`\" /Users/bhavyapatel/PortFolio-Website/src/ --include=\"*.tsx\" --include=\"*.ts\")"
     ]
   },
   "enableAllProjectMcpServers": true,
