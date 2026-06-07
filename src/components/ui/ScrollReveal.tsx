@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 interface ScrollRevealProps {
@@ -32,10 +32,10 @@ export function ScrollReveal({ children, delay = 0, direction = 'up', className 
 
   const getInitialPosition = () => {
     const positions = {
-      left: { x: -100, y: 0 },
-      right: { x: 100, y: 0 },
-      up: { x: 0, y: 50 },
-      down: { x: 0, y: -50 },
+      left: { x: -30, y: 0 },
+      right: { x: 30, y: 0 },
+      up: { x: 0, y: 24 },
+      down: { x: 0, y: -24 },
     };
     return positions[direction];
   };
@@ -45,7 +45,7 @@ export function ScrollReveal({ children, delay = 0, direction = 'up', className 
       ref={ref}
       initial={{ opacity: 0, ...getInitialPosition() }}
       animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
-      transition={{ delay, duration: 0.8, type: 'spring', stiffness: 100 }}
+      transition={{ delay, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
       {children}

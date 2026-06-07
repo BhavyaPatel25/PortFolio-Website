@@ -1,14 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 const navLinks = [
-  { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
   { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
+  { label: 'Skills', href: '#skills' },
   { label: 'Publications', href: '#publications' },
   { label: 'Contact', href: '#contact' },
 ];
@@ -16,19 +14,21 @@ const navLinks = [
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState('about');
+  const [maskStyle, setMaskStyle] = useState({ left: 0, width: 0 });
+  const navRef = useRef<HTMLDivElement>(null);
+  const linkRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      // Determine active section
       const sections = navLinks.map((link) => link.href.slice(1));
       for (const section of sections.reverse()) {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          if (rect.top <= 150) {
+          if (rect.top <= 200) {
             setActiveSection(section);
             break;
           }
@@ -39,6 +39,19 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const activeLink = linkRefs.current.get(activeSection);
+    const nav = navRef.current;
+    if (activeLink && nav) {
+      const linkRect = activeLink.getBoundingClientRect();
+      const navRect = nav.getBoundingClientRect();
+      setMaskStyle({
+        left: linkRect.left - navRect.left,
+        width: linkRect.width,
+      });
+    }
+  }, [activeSection]);
 
   const scrollToSection = (href: string) => {
     const element = document.getElementById(href.slice(1));
@@ -51,97 +64,96 @@ export default function Navbar() {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'glass py-3' : 'py-5'
+          isScrolled ? 'bg-[#0a0a0f]/90 backdrop-blur-md border-b border-[#1a1a24]' : 'bg-transparent'
         }`}
       >
-        <div className="container px-6">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
+        <div className="container px-4 sm:px-6">
+          <div className="flex items-center justify-between h-16">
             <a
               href="#home"
               onClick={(e) => {
                 e.preventDefault();
-                scrollToSection('#home');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="text-xl font-bold"
+              className="font-mono text-sm font-bold text-[#f0f0f5] hover:text-[#8B5CF6] transition-colors"
             >
-              <span className="text-gradient">BP</span>
+              bp.dev
             </a>
 
-            {/* Desktop navigation */}
-            <div className="hidden md:flex items-center gap-1">
+            {/* Desktop navigation with animated underline mask */}
+            <div ref={navRef} className="hidden md:flex items-center gap-1 relative">
               {navLinks.map((link) => (
-                <button
-                  key={link.href}
-                  onClick={() => scrollToSection(link.href)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                <a
+                  key={link.label}
+                  ref={(el) => {
+                    if (el) linkRefs.current.set(link.href.slice(1), el);
+                  }}
+                  href={link.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(link.href);
+                  }}
+                  className={`px-3 py-2 text-sm transition-colors relative z-10 ${
                     activeSection === link.href.slice(1)
-                      ? 'text-primary bg-primary/10'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                      ? 'text-[#f0f0f5]'
+                      : 'text-[#8a8a9a] hover:text-[#f0f0f5]'
                   }`}
                 >
                   {link.label}
-                </button>
+                </a>
               ))}
+              <motion.div
+                className="absolute bottom-0 h-[2px] bg-[#8B5CF6] rounded-full"
+                animate={{
+                  left: maskStyle.left,
+                  width: maskStyle.width,
+                }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              />
             </div>
 
-            {/* CTA button */}
-            <div className="hidden md:block">
-              <Button variant="hero" size="sm" onClick={() => scrollToSection('#contact')}>
-                Get in Touch
-              </Button>
-            </div>
-
-            {/* Mobile menu button */}
+            {/* Mobile hamburger */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg hover:bg-muted transition-colors"
+              className="md:hidden p-2 text-[#8a8a9a] hover:text-[#f0f0f5] transition-colors"
+              aria-label="Toggle menu"
             >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
       </motion.nav>
 
-      {/* Mobile menu */}
+      {/* Mobile menu overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 top-16 z-40 glass border-b border-border md:hidden"
+            className="fixed inset-x-0 top-16 z-40 bg-[#0a0a0f]/95 backdrop-blur-md border-b border-[#1a1a24] md:hidden"
           >
-            <div className="container px-6 py-6">
-              <div className="flex flex-col gap-2">
-                {navLinks.map((link) => (
-                  <button
-                    key={link.href}
-                    onClick={() => scrollToSection(link.href)}
-                    className={`px-4 py-3 rounded-lg text-left font-medium transition-all ${
-                      activeSection === link.href.slice(1)
-                        ? 'text-primary bg-primary/10'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-                    }`}
-                  >
-                    {link.label}
-                  </button>
-                ))}
-                <Button
-                  variant="hero"
-                  className="mt-4"
-                  onClick={() => scrollToSection('#contact')}
+            <div className="container px-4 py-6 space-y-1">
+              {navLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(link.href);
+                  }}
+                  className={`block px-3 py-3 text-sm rounded-md transition-colors ${
+                    activeSection === link.href.slice(1)
+                      ? 'text-[#f0f0f5] bg-[#111118]'
+                      : 'text-[#8a8a9a] hover:text-[#f0f0f5] hover:bg-[#111118]'
+                  }`}
                 >
-                  Get in Touch
-                </Button>
-              </div>
+                  {link.label}
+                </a>
+              ))}
             </div>
           </motion.div>
         )}

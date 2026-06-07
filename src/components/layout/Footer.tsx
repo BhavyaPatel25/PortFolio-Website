@@ -10,23 +10,16 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative py-12 border-t border-border">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-      
-      <div className="container px-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Logo and copyright */}
+    <footer className="border-t border-[#1a1a24] py-10">
+      <div className="container px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="text-center md:text-left">
-            <a href="#home" className="text-2xl font-bold text-gradient mb-2 inline-block">
-              BP
-            </a>
-            <p className="text-sm text-muted-foreground">
-              © {currentYear} Bhavya Patel. All rights reserved.
+            <span className="font-mono text-sm font-bold text-[#f0f0f5]">bhavya_patel</span>
+            <p className="font-mono text-xs text-[#4a4a5a] mt-1">
+              &copy; {currentYear} — All rights reserved
             </p>
           </div>
 
-
-          {/* Social links */}
           <div className="flex gap-3">
             {socials.map((social) => (
               <a
@@ -34,12 +27,16 @@ export default function Footer() {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg glass flex items-center justify-center group hover:bg-primary/10 transition-colors"
+                className="w-9 h-9 rounded-md flex items-center justify-center bg-[#111118] border border-[#1a1a24] hover:border-[#4a4a5a] hover:text-[#f0f0f5] text-[#8a8a9a] transition-all"
                 aria-label={social.label}
               >
-                <social.icon className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                <social.icon className="w-4 h-4" />
               </a>
             ))}
+          </div>
+
+          <div className="font-mono text-xs text-[#4a4a5a]">
+            Built with React + Tailwind
           </div>
         </div>
       </div>

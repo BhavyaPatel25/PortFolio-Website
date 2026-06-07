@@ -92,11 +92,11 @@ export default function Chatbot() {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
             onClick={() => setOpen(true)}
-            whileHover={{ scale: 1.1 }}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="h-12 w-12 rounded-full bg-gradient-to-br from-primary to-secondary shadow-lg hover:shadow-xl transition relative overflow-hidden"
+            className="h-12 w-12 rounded-md bg-[#8B5CF6] shadow-lg hover:shadow-xl transition flex items-center justify-center"
           >
-            <Bot className="h-5 w-5 text-white absolute inset-0 m-auto" />
+            <Bot className="h-5 w-5 text-white" />
           </motion.button>
         )}
 
@@ -106,45 +106,39 @@ export default function Chatbot() {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.8, opacity: 0, y: 20 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="w-[360px] h-[500px] rounded-2xl overflow-hidden shadow-xl border border-primary/15 bg-background/95 flex flex-col backdrop-blur"
+            className="w-[360px] h-[500px] rounded-lg overflow-hidden shadow-xl border border-[#1a1a24] bg-[#111118] flex flex-col"
           >
             {/* Header */}
-            <div className="px-4 py-3 bg-gradient-to-r from-primary/70 to-secondary/70 border-b border-primary/10">
+            <div className="px-4 py-3 bg-[#0a0a0f] border-b border-[#1a1a24]">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="h-8 w-8 rounded-full bg-white/10 flex items-center justify-center">
-                    <Bot className="h-4 w-4 text-white" />
+                  <div className="h-8 w-8 rounded-md bg-[#8B5CF6]/15 flex items-center justify-center">
+                    <Bot className="h-4 w-4 text-[#8B5CF6]" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-white">AI Assistant</p>
-                    <p className="text-xs text-white/70">Instant answers</p>
+                    <p className="text-sm font-semibold text-[#f0f0f5]">AI Assistant</p>
+                    <p className="text-xs text-[#8a8a9a]">Ask about my work</p>
                   </div>
                 </div>
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
+                <button
                   onClick={() => setOpen(false)}
-                  className="p-1 hover:bg-white/10 rounded-lg transition"
+                  className="p-1 hover:bg-[#1a1a24] rounded-md transition"
                 >
-                  <X className="h-4 w-4 text-white" />
-                </motion.button>
+                  <X className="h-4 w-4 text-[#8a8a9a]" />
+                </button>
               </div>
             </div>
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
               {messages.length === 0 && (
-                <motion.div 
-                  className="h-full flex items-center justify-center"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                >
+                <div className="h-full flex items-center justify-center">
                   <div className="text-center">
-                    <p className="text-3xl mb-2">💬</p>
-                    <p className="text-xs font-semibold text-foreground mb-1">Welcome!</p>
-                    <p className="text-xs text-muted-foreground">Ask me about projects or skills</p>
+                    <Bot className="w-8 h-8 text-[#4a4a5a] mx-auto mb-2" />
+                    <p className="text-xs font-semibold text-[#f0f0f5] mb-1">Welcome!</p>
+                    <p className="text-xs text-[#8a8a9a]">Ask me about projects or skills</p>
                   </div>
-                </motion.div>
+                </div>
               )}
 
               <AnimatePresence>
@@ -160,25 +154,25 @@ export default function Chatbot() {
                     )}
                   >
                     {msg.role === "assistant" && (
-                      <div className="h-5 w-5 rounded-full bg-primary/15 flex items-center justify-center flex-shrink-0 mt-1">
-                        <Bot className="h-2.5 w-2.5 text-primary" />
+                      <div className="h-5 w-5 rounded-md bg-[#8B5CF6]/15 flex items-center justify-center flex-shrink-0 mt-1">
+                        <Bot className="h-2.5 w-2.5 text-[#8B5CF6]" />
                       </div>
                     )}
 
                     <div
                       className={cn(
-                        "rounded-lg px-3 py-2 text-xs max-w-[70%] leading-relaxed",
+                        "rounded-md px-3 py-2 text-xs max-w-[70%] leading-relaxed",
                         msg.role === "user"
-                          ? "bg-gradient-to-br from-primary to-secondary text-white rounded-br-none"
-                          : "bg-muted text-foreground rounded-bl-none"
+                          ? "bg-[#8B5CF6] text-white rounded-br-none"
+                          : "bg-[#1a1a24] text-[#f0f0f5] rounded-bl-none"
                       )}
                     >
                       {msg.content}
                     </div>
 
                     {msg.role === "user" && (
-                      <div className="h-5 w-5 rounded-full bg-secondary/15 flex items-center justify-center flex-shrink-0 mt-1">
-                        <User className="h-2.5 w-2.5 text-secondary" />
+                      <div className="h-5 w-5 rounded-md bg-[#1a1a24] flex items-center justify-center flex-shrink-0 mt-1">
+                        <User className="h-2.5 w-2.5 text-[#8a8a9a]" />
                       </div>
                     )}
                   </motion.div>
@@ -186,48 +180,42 @@ export default function Chatbot() {
               </AnimatePresence>
 
               {loading && (
-                <motion.div 
-                  className="flex gap-2"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                >
-                  <div className="h-5 w-5 rounded-full bg-primary/15 flex items-center justify-center flex-shrink-0 mt-1">
-                    <Bot className="h-2.5 w-2.5 text-primary" />
+                <div className="flex gap-2">
+                  <div className="h-5 w-5 rounded-md bg-[#8B5CF6]/15 flex items-center justify-center flex-shrink-0 mt-1">
+                    <Bot className="h-2.5 w-2.5 text-[#8B5CF6]" />
                   </div>
-                  <div className="flex gap-1 items-center bg-muted rounded-lg rounded-bl-none px-3 py-2">
+                  <div className="flex gap-1 items-center bg-[#1a1a24] rounded-md rounded-bl-none px-3 py-2">
                     {[0, 1, 2].map((i) => (
                       <motion.div
                         key={i}
-                        className="w-1 h-1 rounded-full bg-primary"
+                        className="w-1 h-1 rounded-full bg-[#8B5CF6]"
                         animate={{ y: [0, -3, 0] }}
                         transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.1 }}
                       />
                     ))}
                   </div>
-                </motion.div>
+                </div>
               )}
 
               <div ref={bottomRef} />
             </div>
 
             {/* Input */}
-            <div className="border-t border-primary/10 bg-background/80 p-2.5 flex gap-2">
+            <div className="border-t border-[#1a1a24] bg-[#0a0a0f] p-2.5 flex gap-2">
               <Input
                 placeholder="Ask me..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-                className="bg-muted/60 border-primary/20 text-foreground text-xs placeholder:text-muted-foreground/60 h-8 focus:border-primary/40"
+                className="bg-[#111118] border-[#1a1a24] text-[#f0f0f5] text-xs placeholder:text-[#4a4a5a] h-8 focus:border-[#8B5CF6]/40"
               />
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <button
                 onClick={sendMessage}
                 disabled={loading}
-                className="px-3 rounded-lg bg-gradient-to-r from-primary to-secondary text-white hover:shadow-md transition disabled:opacity-50 h-8"
+                className="px-3 rounded-md bg-[#8B5CF6] text-white hover:bg-[#7c3aed] transition disabled:opacity-50 h-8 flex items-center justify-center"
               >
                 <Send className="h-3.5 w-3.5" />
-              </motion.button>
+              </button>
             </div>
           </motion.div>
         )}
