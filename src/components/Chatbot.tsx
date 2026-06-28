@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 
 const API_BASE = "https://rag-chatbot-api-pixd.onrender.com";
 const API_URL = `${API_BASE}/chat`;
+const REQUEST_TIMEOUT_MS = 45000; // Render free tier can take a while to wake up
 
 type Message = {
   role: "user" | "assistant";
@@ -89,33 +90,46 @@ export default function Chatbot() {
     setShowHint(false);
     setLoading(true);
 
+    const controller = new AbortController();
+    const timer = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
     try {
       const response = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ question: userMessage.content }),
+        body: JSON.stringify({ question: content }),
+        signal: controller.signal,
       });
+      window.clearTimeout(timer);
 
-      if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+      if (!response.ok) {
+        throw new Error(`server responded ${response.status}`);
+      }
 
       const data = await response.json();
-
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          content: data.answer,
+          content: data.answer ?? "(no answer returned)",
           id: Date.now().toString(),
         },
       ]);
     } catch (error) {
-      console.error("Chatbot fetch error:", error);
+      window.clearTimeout(timer);
+      const aborted = error instanceof DOMException && error.name === "AbortError";
+      const network = error instanceof TypeError; // CORS / offline surface as TypeError "Failed to fetch"
+      console.error("Chatbot request failed:", error);
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          content: "Sorry — couldn't reach the AI service. Try again in a moment.",
+          content: aborted
+            ? "The assistant is taking too long to reply — the server may still be waking up. Try again in a moment."
+            : network
+            ? "Couldn't reach the assistant. If you're viewing this site locally, the API only allows the deployed portfolio (CORS). On the live site, give it a few seconds and retry."
+            : `Couldn't get an answer (${(error as Error).message}). Try again in a moment.`,
           id: Date.now().toString(),
         },
       ]);
@@ -170,7 +184,7 @@ export default function Chatbot() {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.85, opacity: 0, y: 24 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="w-[380px] h-[540px] rounded-2xl overflow-hidden shadow-2xl border border-[#2a241d] bg-[#131210] flex flex-col"
+            data-lenis-prevent className="w-[380px] h-[540px] rounded-2xl overflow-hidden shadow-2xl border border-[#2a241d] bg-[#131210] flex flex-col"
           >
             {/* Header */}
             <div className="px-4 py-3 bg-[#0b0a08] border-b border-[#2a241d] flex items-center justify-between">
@@ -178,7 +192,7 @@ export default function Chatbot() {
                 <BotFace size={38} />
                 <div>
                   <p className="text-sm font-semibold text-[#f3eee3] flex items-center gap-2">
-                    Lossy
+                    Techy
                     <span className="inline-flex items-center gap-1 text-[10px] font-mono text-accent">
                       <span className="relative flex h-1.5 w-1.5">
                         <span className="absolute inset-0 rounded-full bg-accent animate-ping opacity-75" />
@@ -200,7 +214,7 @@ export default function Chatbot() {
             </div>
 
             {/* Messages / Welcome */}
-            <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
+            <div data-lenis-prevent className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
               {empty ? (
                 <div className="h-full flex flex-col items-center justify-center text-center px-2">
                   <motion.div
@@ -211,7 +225,7 @@ export default function Chatbot() {
                   >
                     <BotFace size={64} />
                   </motion.div>
-                  <p className="text-sm font-semibold text-[#f3eee3] mb-1">Hey, I'm Lossy 👋</p>
+                  <p className="text-sm font-semibold text-[#f3eee3] mb-1">Hey, I'm Techy 👋</p>
                   <p className="text-[12px] text-[#9b948a] mb-4 leading-relaxed">
                     I know Bhavya's projects, skills and experience. Pick a starter below or just type a question.
                   </p>
@@ -282,7 +296,7 @@ export default function Chatbot() {
             {/* Input */}
             <div className="border-t border-[#2a241d] bg-[#0b0a08] p-2.5 flex gap-2 items-center">
               <Input
-                placeholder="Ask Lossy anything..."
+                placeholder="Ask Techy anything..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && sendMessage()}
