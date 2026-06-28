@@ -6,12 +6,24 @@ import path from "path";
 export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
-    port: 8080,
+    port: 2207,
   },
   plugins: [react()].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+    },
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        // Keep the heavy 3D / animation libs in a stable chunk so they
+        // cache separately from app code and don't bloat the main entry.
+        manualChunks: {
+          three: ["three", "@react-three/fiber", "@react-three/drei"],
+          motion: ["gsap", "lenis", "framer-motion"],
+        },
+      },
     },
   },
 }));

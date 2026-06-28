@@ -1,42 +1,38 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import LiveClock from '@/components/ui/LiveClock';
 
 const navLinks = [
   { label: 'About', href: '#about' },
-  { label: 'Experience', href: '#experience' },
+  { label: 'Work', href: '#experience' },
   { label: 'Projects', href: '#projects' },
   { label: 'Skills', href: '#skills' },
-  { label: 'Publications', href: '#publications' },
+  { label: 'Research', href: '#publications' },
   { label: 'Contact', href: '#contact' },
 ];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('about');
+  const [activeSection, setActiveSection] = useState('home');
   const [maskStyle, setMaskStyle] = useState({ left: 0, width: 0 });
   const navRef = useRef<HTMLDivElement>(null);
   const linkRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-
-      const sections = navLinks.map((link) => link.href.slice(1));
-      for (const section of sections.reverse()) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 200) {
-            setActiveSection(section);
-            break;
-          }
+      setIsScrolled(window.scrollY > 40);
+      const sections = navLinks.map((l) => l.href.slice(1));
+      for (const section of [...sections].reverse()) {
+        const el = document.getElementById(section);
+        if (el && el.getBoundingClientRect().top <= 180) {
+          setActiveSection(section);
+          break;
         }
       }
     };
-
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -44,45 +40,44 @@ export default function Navbar() {
     const activeLink = linkRefs.current.get(activeSection);
     const nav = navRef.current;
     if (activeLink && nav) {
-      const linkRect = activeLink.getBoundingClientRect();
-      const navRect = nav.getBoundingClientRect();
-      setMaskStyle({
-        left: linkRect.left - navRect.left,
-        width: linkRect.width,
-      });
+      const lr = activeLink.getBoundingClientRect();
+      const nr = nav.getBoundingClientRect();
+      setMaskStyle({ left: lr.left - nr.left, width: lr.width });
     }
   }, [activeSection]);
 
   const scrollToSection = (href: string) => {
-    const element = document.getElementById(href.slice(1));
-    element?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth' });
     setIsMobileMenuOpen(false);
   };
 
   return (
     <>
       <motion.nav
-        initial={{ y: -100 }}
+        initial={{ y: -80 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'bg-[#0a0a0f]/90 backdrop-blur-md border-b border-[#1a1a24]' : 'bg-transparent'
+          isScrolled
+            ? 'bg-[#0b0a08]/80 backdrop-blur-xl border-b border-[#26211b]'
+            : 'bg-transparent'
         }`}
       >
         <div className="container px-4 sm:px-6">
           <div className="flex items-center justify-between h-16">
+            {/* Brand */}
             <a
               href="#home"
               onClick={(e) => {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="font-mono text-sm font-bold text-[#f0f0f5] hover:text-[#8B5CF6] transition-colors"
+              className="font-mono text-sm font-semibold text-[#f3eee3] hover:text-accent transition-colors"
             >
-              bp.dev
+              bp<span className="text-accent">.</span>
             </a>
 
-            {/* Desktop navigation with animated underline mask */}
+            {/* Desktop nav */}
             <div ref={navRef} className="hidden md:flex items-center gap-1 relative">
               {navLinks.map((link) => (
                 <a
@@ -97,27 +92,35 @@ export default function Navbar() {
                   }}
                   className={`px-3 py-2 text-sm transition-colors relative z-10 ${
                     activeSection === link.href.slice(1)
-                      ? 'text-[#f0f0f5]'
-                      : 'text-[#8a8a9a] hover:text-[#f0f0f5]'
+                      ? 'text-[#f3eee3]'
+                      : 'text-[#9b948a] hover:text-[#f3eee3]'
                   }`}
                 >
                   {link.label}
                 </a>
               ))}
               <motion.div
-                className="absolute bottom-0 h-[2px] bg-[#8B5CF6] rounded-full"
-                animate={{
-                  left: maskStyle.left,
-                  width: maskStyle.width,
-                }}
+                className="absolute bottom-1 h-[2px] bg-accent rounded-full"
+                animate={{ left: maskStyle.left, width: maskStyle.width }}
                 transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
               />
             </div>
 
-            {/* Mobile hamburger */}
+            {/* Status + clock */}
+            <div className="hidden md:flex items-center gap-3">
+              <span className="flex items-center gap-2 eyebrow">
+                <span className="status-dot w-1.5 h-1.5 rounded-full bg-accent" />
+                Available
+              </span>
+              <span className="font-mono text-xs text-dim tabular-nums">
+                MTL <LiveClock />
+              </span>
+            </div>
+
+            {/* Mobile toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-[#8a8a9a] hover:text-[#f0f0f5] transition-colors"
+              className="md:hidden p-2 text-[#9b948a] hover:text-[#f3eee3] transition-colors"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -126,17 +129,21 @@ export default function Navbar() {
         </div>
       </motion.nav>
 
-      {/* Mobile menu overlay */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+            exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 top-16 z-40 bg-[#0a0a0f]/95 backdrop-blur-md border-b border-[#1a1a24] md:hidden"
+            className="fixed inset-x-0 top-16 z-40 bg-[#0b0a08]/95 backdrop-blur-xl border-b border-[#26211b] md:hidden"
           >
-            <div className="container px-4 py-6 space-y-1">
+            <div className="container px-4 sm:px-6 py-4">
+              <div className="flex items-center gap-2 eyebrow mb-4">
+                <span className="status-dot w-1.5 h-1.5 rounded-full bg-accent" />
+                Available for AI/ML roles
+              </div>
               {navLinks.map((link) => (
                 <a
                   key={link.label}
@@ -145,10 +152,10 @@ export default function Navbar() {
                     e.preventDefault();
                     scrollToSection(link.href);
                   }}
-                  className={`block px-3 py-3 text-sm rounded-md transition-colors ${
+                  className={`block px-3 py-3 text-base rounded-md transition-colors ${
                     activeSection === link.href.slice(1)
-                      ? 'text-[#f0f0f5] bg-[#111118]'
-                      : 'text-[#8a8a9a] hover:text-[#f0f0f5] hover:bg-[#111118]'
+                      ? 'text-[#f3eee3] bg-[#17140f]'
+                      : 'text-[#9b948a] hover:text-[#f3eee3] hover:bg-[#17140f]'
                   }`}
                 >
                   {link.label}

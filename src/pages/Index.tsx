@@ -13,19 +13,19 @@ export default function Index() {
   return (
     <>
       <Helmet>
-        <title>Bhavya Patel | AI Engineer & ML Researcher</title>
+        <title>Bhavya Patel | Artificial Intelligence Engineer</title>
         <meta
           name="description"
-          content="AI/ML Engineer specializing in LLMs, Vision Transformers, and production-grade ML pipelines. Research published in Springer. Based in Montreal, Canada."
+          content="Artificial Intelligence Engineer with 2+ years building ML systems — LLM applications, RAG, computer vision, and production pipelines. PyTorch, TensorFlow, LangChain. Published in Springer (ICDSA 2024). Based in Montreal, Canada."
         />
-        <meta name="keywords" content="AI Engineer, Machine Learning, Deep Learning, LLM, Vision Transformer, Python, TensorFlow, PyTorch, Montreal" />
-        <meta property="og:title" content="Bhavya Patel | AI Engineer & ML Researcher" />
-        <meta property="og:description" content="Building intelligent systems that scale. Specializing in LLMs, Vision Transformers, and production-grade ML pipelines." />
+        <meta name="keywords" content="Artificial Intelligence Engineer, AI/ML, Machine Learning, Deep Learning, LLM, RAG, Vision Transformer, PyTorch, TensorFlow, LangChain, Hugging Face, AWS, Azure, Montreal" />
+        <meta property="og:title" content="Bhavya Patel | Artificial Intelligence Engineer" />
+        <meta property="og:description" content="AI/ML Engineer — LLM applications, RAG, computer vision, and production ML pipelines. Published in Springer (ICDSA 2024). Montreal, Canada." />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://bhavyapatel.dev" />
+        <link rel="canonical" href="https://bhavyapatel25.netlify.app" />
       </Helmet>
 
-      <div className="min-h-screen bg-[#0a0a0f]">
+      <div className="min-h-screen bg-[#0b0a08]">
         <Navbar />
         <main>
           <Hero />

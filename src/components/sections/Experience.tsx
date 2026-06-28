@@ -1,10 +1,10 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Briefcase, GraduationCap, ChevronDown, Calendar, MapPin } from 'lucide-react';
+import { Briefcase, GraduationCap, ChevronDown, MapPin, Users } from 'lucide-react';
 import { SectionEyebrow } from '@/components/ui/SectionEyebrow';
 
 interface ExperienceItem {
-  type: 'work' | 'research';
+  type: 'work' | 'research' | 'leadership';
   title: string;
   company: string;
   location: string;
@@ -16,185 +16,161 @@ interface ExperienceItem {
 const experiences: ExperienceItem[] = [
   {
     type: 'work',
-    title: 'Teaching Assistant',
+    title: 'Teaching Assistant — Distributed Systems',
     company: 'Concordia University',
     location: 'Montreal, Canada',
-    period: 'Sep 2025 – Present',
-    description: 'Distributed Systems course',
+    period: 'Sep 2025 — May 2026',
+    description: 'Led labs and tutorials on Java RMI, CORBA, and SOAP web services.',
     details: [
-      'Mentored 20+ students in Distributed Systems, covering Java RMI, CORBA, and SOAP-based Web Services through hands-on lab sessions.',
-      'Conducted weekly tutorials and 5+ structured lab sessions, reinforcing theoretical concepts with practical exercises.',
-      'Evaluated and graded 5+ assignments and final projects per term, ensuring grading consistency and delivering actionable feedback within 5 days.',
+      'Directed 10+ lab sessions and weekly tutorials on Distributed Systems for 20+ students.',
+      'Authored 10+ tutorials, 5+ labs, 10+ page technical presentations, and programming exercises.',
+      'Evaluated 50+ assignments and final projects per term with structured feedback within 5 days.',
     ],
   },
   {
     type: 'work',
     title: 'Data Science Intern',
-    company: 'Blue Data Consulting',
+    company: 'Blue Data Consulting & IT Services Pvt. Ltd.',
     location: 'Surat, India',
-    period: 'Dec 2023 – Jun 2024',
-    description: 'AI/ML Engineering & LLM Development',
+    period: 'Dec 2023 — Jun 2024',
+    description: 'AI/ML engineering — LLM-powered content automation pipeline.',
     details: [
-      'Designed an AI-driven content automation pipeline converting 50+ PowerPoint decks into video courses using LLMs, RAG, and Streamlit.',
-      'Benchmarked GPT-3.5, GPT-4, and Gemini, achieving 25% higher script accuracy through model selection and tuning.',
-      'Developed 10+ AI-powered course modules leveraging LangChain, Flowise AI, and prompt engineering.',
+      'Architected an end-to-end AI pipeline converting 50+ PowerPoint decks into video courses using LLMs, RAG, and Streamlit, lifting automation efficiency 40%.',
+      'Benchmarked 4 LLMs on accuracy and speed, achieving 25% higher script accuracy and 35% faster generation with GPT-3.5-Turbo.',
+      'Collaborated with a 5-member team on 10+ AI course modules (LangChain, Flowise AI, prompt engineering), scaling content 3x via Streamlit Cloud.',
     ],
   },
   {
     type: 'research',
-    title: 'ML Research Student',
+    title: 'ML Research Student — Vision Transformers',
     company: 'CHARUSAT University',
     location: 'Changa, India',
-    period: 'Mar 2022 – Jun 2023',
-    description: 'Vision Transformer Research',
+    period: 'Mar 2022 — Jun 2023',
+    description: 'ViT-based sports action recognition on the UCF-101 dataset.',
     details: [
-      'Processed and curated 13K+ video frames from UCF-101 Sports Action dataset for multi-class activity recognition.',
-      'Optimized Vision Transformer (ViT) architecture through hyperparameter tuning, improving accuracy from 84% to 94%.',
-      'Systematic experiments across multiple configurations reduced validation loss by ~9%.',
+      'Built a deep learning pipeline extracting and curating 13K+ video frames from UCF-101 using NumPy and Pandas.',
+      'Fine-tuned a Vision Transformer with TensorFlow and TensorFlow Hub, lifting accuracy from 84% to 94%.',
+      'Applied systematic hyperparameter tuning and advanced data augmentation to cut validation loss.',
     ],
   },
   {
     type: 'work',
-    title: 'Flutter Developer Trainee',
+    title: 'Flutter Development Trainee',
     company: 'Inspire Cyber Security',
     location: 'Surat, India',
-    period: 'May – Oct 2022',
-    description: 'Mobile Application Development',
+    period: 'May — Oct 2022',
+    description: 'Mobile app development from Adobe XD to production Flutter UIs.',
     details: [
-      'Prototyped and developed 3+ mobile applications using Flutter, translating Adobe XD wireframes into production-ready interfaces.',
-      'Built a Notes application with SQLite-based offline storage implementing full CRUD functionality.',
-      'Delivered "Palm Box Cricket Booking System" with real-time slot reservations through intuitive Flutter UI/UX.',
+      'Prototyped 3+ mobile apps in Adobe XD, converting wireframes into responsive Flutter interfaces, cutting iteration cycles 50%.',
+      'Delivered the client project "Palm Box Cricket Booking System" with real-time slot reservations, growing user engagement 40%.',
     ],
   },
   {
-    type: 'work',
-    title: 'Python Developer Intern',
-    company: 'Jemistry Info Solutions',
-    location: 'Surat, India',
-    period: 'May – Jul 2022',
-    description: 'Backend Development & Team Leadership',
+    type: 'leadership',
+    title: 'Professional Service Director — Rotaract Club',
+    company: 'CHARUSAT University',
+    location: 'Gujarat, India',
+    period: 'Sep 2022 — Aug 2023',
+    description: 'Led cross-functional teams organizing community and technical events.',
     details: [
-      'Led a 4-member intern team to develop a PC health monitoring system using Python Socket and OS modules.',
-      'Implemented secure authentication in Django with PostgreSQL, reducing login latency by ~30%.',
-      'Refactored backend components improving processing efficiency by 40% on low-end devices.',
+      'Led and coordinated 10+ social, technical, and cultural events impacting 500+ students.',
+      'Managed cross-functional team operations, improving coordination efficiency by 25%.',
     ],
   },
 ];
 
+const ICON = { work: Briefcase, research: GraduationCap, leadership: Users } as const;
+const LABEL = { work: 'Work', research: 'Research', leadership: 'Leadership' } as const;
+
 export default function Experience() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
 
   return (
     <section id="experience" className="py-24 md:py-32 relative">
       <div className="container px-4 sm:px-6" ref={ref}>
         <div className="max-w-5xl mx-auto">
-          <SectionEyebrow label="Career" number="02" />
+          <SectionEyebrow label="Experience" number="02" />
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-12"
+            className="mb-14 max-w-2xl"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#f0f0f5] mb-6">
-              Experience <span className="text-gradient">Log</span>
+            <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-[#f3eee3] leading-[0.95]">
+              A path through <span className="text-gradient italic">research</span> and
+              shipping.
             </h2>
-            <p className="text-[#8a8a9a] text-lg max-w-xl">
-              {experiences.length} entries spanning research, teaching, and engineering.
-            </p>
           </motion.div>
 
-          <div className="space-y-4">
-            {experiences.map((exp, i) => {
-              const isExpanded = expandedIndex === i;
-              return (
-                <motion.div
-                  key={exp.title + exp.company}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: 0.1 + i * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  className="group"
-                >
-                  <button
-                    onClick={() => setExpandedIndex(isExpanded ? null : i)}
-                    className="w-full text-left"
+          <div className="relative pl-8 sm:pl-10">
+            <span className="absolute left-[10px] sm:left-[13px] top-2 bottom-2 w-px bg-gradient-to-b from-accent/60 via-[#2a241d] to-transparent" />
+
+            <div className="space-y-3">
+              {experiences.map((exp, i) => {
+                const isExpanded = expandedIndex === i;
+                const Icon = ICON[exp.type];
+                return (
+                  <motion.div
+                    key={exp.title + exp.company}
+                    initial={{ opacity: 0, x: -16 }}
+                    animate={isInView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ delay: 0.1 + i * 0.07, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    className="relative"
                   >
-                    <div className="surface rounded-md p-5 md:p-6 transition-all duration-300 hover:bg-[#16161f]">
-                      <div className="flex items-start gap-4">
-                        <div className="flex flex-col items-center gap-2">
-                          <span className="font-mono text-[10px] text-[#4a4a5a]">
-                            {String(i).padStart(2, '0')}
-                          </span>
-                          <div className="w-9 h-9 rounded-md bg-[#111118] border border-[#1a1a24] flex items-center justify-center flex-shrink-0">
-                            {exp.type === 'research' ? (
-                              <GraduationCap className="w-4 h-4 text-[#8B5CF6]" />
-                            ) : (
-                              <Briefcase className="w-4 h-4 text-[#7c8bb5]" />
-                            )}
+                    <span
+                      className={`absolute -left-[26px] sm:-left-[34px] top-6 w-3 h-3 rounded-full border-2 transition-colors ${
+                        isExpanded ? 'bg-accent border-accent' : 'bg-[#0b0a08] border-[#3a3329]'
+                      }`}
+                    />
+
+                    <button
+                      onClick={() => setExpandedIndex(isExpanded ? null : i)}
+                      className="w-full text-left surface surface-hover rounded-xl p-5 md:p-6"
+                      aria-expanded={isExpanded}
+                    >
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2 mb-1.5">
+                            <Icon className="w-3.5 h-3.5 text-accent" />
+                            <span className="eyebrow">{LABEL[exp.type]}</span>
                           </div>
+                          <h3 className="font-serif text-xl md:text-2xl text-[#f3eee3] leading-tight">
+                            {exp.title}
+                          </h3>
+                          <p className="text-muted-warm text-sm mt-1">
+                            {exp.company} · <span className="inline-flex items-center gap-1"><MapPin className="w-3 h-3" />{exp.location}</span>
+                          </p>
                         </div>
-
-                        <div className="flex-1 min-w-0">
-                          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-1 md:gap-4 mb-2">
-                            <div>
-                              <h3 className="font-semibold text-[#f0f0f5] text-base md:text-lg">
-                                {exp.title}
-                              </h3>
-                              <p className="text-[#8a8a9a] text-sm">
-                                {exp.company}
-                              </p>
-                            </div>
-                            <div className="flex items-center gap-3 flex-shrink-0">
-                              <span className="font-mono text-xs text-[#4a4a5a] flex items-center gap-1">
-                                <Calendar className="w-3 h-3" />
-                                {exp.period}
-                              </span>
-                              <ChevronDown
-                                className={`w-4 h-4 text-[#4a4a5a] transition-transform duration-300 ${
-                                  isExpanded ? 'rotate-180' : ''
-                                }`}
-                              />
-                            </div>
-                          </div>
-
-                          <p className="text-[#8a8a9a] text-sm mb-1">{exp.description}</p>
-                          <div className="flex items-center gap-1 text-[#4a4a5a] text-xs">
-                            <MapPin className="w-3 h-3" />
-                            {exp.location}
-                          </div>
+                        <div className="text-right flex-shrink-0">
+                          <span className="font-mono text-xs text-accent whitespace-nowrap">{exp.period}</span>
+                          <ChevronDown className={`w-4 h-4 text-dim mt-2 ml-auto transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
                         </div>
                       </div>
 
                       <motion.div
                         initial={false}
-                        animate={{
-                          height: isExpanded ? 'auto' : 0,
-                          opacity: isExpanded ? 1 : 0,
-                        }}
-                        transition={{ duration: 0.3, ease: 'easeInOut' }}
+                        animate={{ height: isExpanded ? 'auto' : 0, opacity: isExpanded ? 1 : 0 }}
+                        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                         className="overflow-hidden"
                       >
-                        <div className="pt-5 mt-4 border-t border-[#1a1a24]">
-                          <ul className="space-y-3 pl-[52px]">
-                            {exp.details.map((detail, j) => (
-                              <li
-                                key={j}
-                                className="flex items-start gap-2.5 text-sm text-[#8a8a9a]"
-                              >
-                                <span className="w-1 h-1 rounded-full bg-[#8B5CF6]/80 mt-2 flex-shrink-0" />
-                                {detail}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+                        <p className="text-[#c9c3b6] text-sm mt-4 mb-4">{exp.description}</p>
+                        <ul className="space-y-2.5">
+                          {exp.details.map((d, di) => (
+                            <li key={di} className="flex gap-3 text-sm text-muted-warm">
+                              <span className="text-accent font-mono mt-0.5">→</span>
+                              <span className="leading-relaxed">{d}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </motion.div>
-                    </div>
-                  </button>
-                </motion.div>
-              );
-            })}
+                    </button>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
