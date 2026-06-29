@@ -1,6 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Mail, MapPin, Linkedin, Github, Send, ArrowUpRight, Phone, Globe } from 'lucide-react';
+import { Mail, MapPin, Linkedin, Github, Send, Phone, Globe } from 'lucide-react';
 import { SectionEyebrow } from '@/components/ui/SectionEyebrow';
 
 const encode = (data: Record<string, string>) =>
@@ -24,6 +24,7 @@ export default function Contact() {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: encode({
           'form-name': 'contact',
+          'bot-field': '',
           name: formData.name,
           email: formData.email,
           message: formData.message,
@@ -31,9 +32,10 @@ export default function Contact() {
       });
       setSubmitted(true);
       setFormData({ name: '', email: '', message: '' });
-      setTimeout(() => setSubmitted(false), 4000);
+      // hold the success state (form disabled) for 5 seconds
+      window.setTimeout(() => setSubmitted(false), 5000);
     } catch {
-      // noop
+      // noop — leave the form usable
     } finally {
       setIsSubmitting(false);
     }
@@ -127,68 +129,136 @@ export default function Contact() {
               className="surface rounded-2xl p-6 md:p-8 space-y-5"
               name="contact"
               data-netlify="true"
+              netlify-honeypot="bot-field"
             >
               <div className="flex items-center justify-between">
                 <span className="eyebrow">Send a message</span>
-                <span className="font-mono text-[10px] text-dim">POST /contact</span>
+                <span className="font-mono text-[10px] text-dim">
+                  {submitted ? '✓ delivered' : 'POST /contact'}
+                </span>
               </div>
 
-              <div>
-                <label className="eyebrow mb-1.5 block">Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full bg-[#0e0d0b] border border-[#2a241d] rounded-lg px-3.5 py-3 text-sm text-[#f3eee3] placeholder:text-dim focus:outline-none focus:border-accent/60 transition-colors"
-                  placeholder="Your name"
-                />
-              </div>
-              <div>
-                <label className="eyebrow mb-1.5 block">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full bg-[#0e0d0b] border border-[#2a241d] rounded-lg px-3.5 py-3 text-sm text-[#f3eee3] placeholder:text-dim focus:outline-none focus:border-accent/60 transition-colors"
-                  placeholder="you@email.com"
-                />
-              </div>
-              <div>
-                <label className="eyebrow mb-1.5 block">Message</label>
-                <textarea
-                  name="message"
-                  rows={4}
-                  required
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full bg-[#0e0d0b] border border-[#2a241d] rounded-lg px-3.5 py-3 text-sm text-[#f3eee3] placeholder:text-dim focus:outline-none focus:border-accent/60 transition-colors resize-none"
-                  placeholder="Tell me about the opportunity..."
-                />
-              </div>
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="btn-primary w-full justify-center disabled:opacity-50"
-              >
-                {submitted ? (
-                  'Message sent'
-                ) : isSubmitting ? (
-                  'Sending…'
-                ) : (
-                  <>
-                    Send message
-                    <Send className="w-4 h-4" />
-                  </>
-                )}
-              </button>
+              {submitted ? (
+                <div className="contact-success-pop flex flex-col items-center justify-center text-center py-10">
+                  <div className="relative w-20 h-20">
+                    <svg viewBox="0 0 80 80" className="w-20 h-20 -rotate-90">
+                      <circle cx="40" cy="40" r="36" fill="none" stroke="rgba(198,242,78,0.15)" strokeWidth="3" />
+                      <circle
+                        cx="40"
+                        cy="40"
+                        r="36"
+                        fill="none"
+                        stroke="#c6f24e"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        className="contact-progress-ring"
+                      />
+                    </svg>
+                    <svg viewBox="0 0 24 24" className="contact-check absolute inset-0 m-auto w-9 h-9">
+                      <path
+                        d="M5 12l5 5 9-10"
+                        fill="none"
+                        stroke="#c6f24e"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <p className="mt-5 text-sm font-semibold text-[#f3eee3]">Message sent!</p>
+                  <p className="mt-1 text-xs text-muted-warm">Thanks — I'll get back to you soon.</p>
+                </div>
+              ) : (
+                <>
+                  {/* honeypot (hidden from humans) */}
+                  <input type="text" name="bot-field" tabIndex={-1} autoComplete="off" className="hidden" />
+
+                  <div>
+                    <label className="eyebrow mb-1.5 block">Name</label>
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      disabled={isSubmitting}
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="w-full bg-[#0e0d0b] border border-[#2a241d] rounded-lg px-3.5 py-3 text-sm text-[#f3eee3] placeholder:text-dim focus:outline-none focus:border-accent/60 transition-colors"
+                      placeholder="Your name"
+                    />
+                  </div>
+                  <div>
+                    <label className="eyebrow mb-1.5 block">Email</label>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      disabled={isSubmitting}
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="w-full bg-[#0e0d0b] border border-[#2a241d] rounded-lg px-3.5 py-3 text-sm text-[#f3eee3] placeholder:text-dim focus:outline-none focus:border-accent/60 transition-colors"
+                      placeholder="you@email.com"
+                    />
+                  </div>
+                  <div>
+                    <label className="eyebrow mb-1.5 block">Message</label>
+                    <textarea
+                      name="message"
+                      rows={4}
+                      required
+                      disabled={isSubmitting}
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      className="w-full bg-[#0e0d0b] border border-[#2a241d] rounded-lg px-3.5 py-3 text-sm text-[#f3eee3] placeholder:text-dim focus:outline-none focus:border-accent/60 transition-colors resize-none"
+                      placeholder="Tell me about the opportunity..."
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn-primary w-full justify-center disabled:opacity-50"
+                  >
+                    {isSubmitting ? (
+                      'Sending…'
+                    ) : (
+                      <>
+                        Send message
+                        <Send className="w-4 h-4" />
+                      </>
+                    )}
+                  </button>
+                </>
+              )}
             </motion.form>
           </div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes contact-success-pop {
+          0% { opacity: 0; transform: scale(0.85); }
+          60% { transform: scale(1.04); }
+          100% { opacity: 1; transform: scale(1); }
+        }
+        .contact-success-pop { animation: contact-success-pop 0.4s ease forwards; }
+        @keyframes contact-ring-fill {
+          from { stroke-dashoffset: 226.2; }
+          to { stroke-dashoffset: 0; }
+        }
+        .contact-progress-ring {
+          stroke-dasharray: 226.2;
+          stroke-dashoffset: 226.2;
+          animation: contact-ring-fill 5s linear forwards;
+        }
+        @keyframes contact-check-draw {
+          from { stroke-dashoffset: 21; }
+          to { stroke-dashoffset: 0; }
+        }
+        .contact-check path {
+          stroke-dasharray: 21;
+          stroke-dashoffset: 21;
+          animation: contact-check-draw 0.45s ease 0.15s forwards;
+        }
+      `}</style>
     </section>
   );
 }
