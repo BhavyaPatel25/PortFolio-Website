@@ -17,11 +17,10 @@ export default defineConfig(({ mode }) => ({
   build: {
     rollupOptions: {
       output: {
-        // Keep the heavy 3D / animation libs in a stable chunk so they
-        // cache separately from app code and don't bloat the main entry.
+        // The current portfolio uses illustrations and HTML interactions.
         manualChunks: {
-          three: ["three", "@react-three/fiber", "@react-three/drei"],
-          motion: ["gsap", "lenis", "framer-motion"],
+          vendor: ["react", "react-dom"],
+          motion: ["framer-motion"],
         },
       },
     },

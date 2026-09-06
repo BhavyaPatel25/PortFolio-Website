@@ -6,8 +6,6 @@ import { HelmetProvider } from "react-helmet-async";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Chatbot from "./components/Chatbot";
-import SmoothScroll from "./components/three/SmoothScroll";
-import CustomCursor from "./components/ui/CustomCursor";
 
 const queryClient = new QueryClient();
 
@@ -18,16 +16,13 @@ const App = () => (
         <Toaster />
 
         <BrowserRouter>
-          <SmoothScroll>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          </SmoothScroll>
         </BrowserRouter>
 
         <Chatbot />
-        <CustomCursor />
       </TooltipProvider>
     </QueryClientProvider>
   </HelmetProvider>
