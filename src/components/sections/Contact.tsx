@@ -1,6 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Mail, MapPin, Linkedin, Github, Send, Phone, Globe } from 'lucide-react';
+import { Mail, MapPin, Linkedin, Github, Send, Globe } from 'lucide-react';
 import { SectionEyebrow } from '@/components/ui/SectionEyebrow';
 
 const encode = (data: Record<string, string>) =>
@@ -64,15 +64,6 @@ export default function Contact() {
               </p>
 
               <div className="mt-8 space-y-3">
-                <a
-                  href="tel:+14388339398"
-                  className="group flex items-center gap-3 text-[#c9c3b6] hover:text-accent transition-colors"
-                >
-                  <span className="w-9 h-9 rounded-lg surface flex items-center justify-center">
-                    <Phone className="w-4 h-4" />
-                  </span>
-                  <span className="link-underline">(438) 833-9398</span>
-                </a>
                 <a
                   href="https://bhavyapatel25.netlify.app"
                   target="_blank"
