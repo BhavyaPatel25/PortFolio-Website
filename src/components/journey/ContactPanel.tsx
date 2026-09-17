@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { ArrowUpRight, Check, Copy, Github, Linkedin, Mail, Send } from 'lucide-react';
+import { ArrowUpRight, Check, Copy, Github, Linkedin, Send } from 'lucide-react';
 const email='bhavyarpatel22@gmail.com';
 export default function ContactPanel() {
   const [state,setState]=useState<'idle'|'sending'|'success'|'error'|'local'>('idle');
@@ -13,8 +13,8 @@ export default function ContactPanel() {
     setState('sending');
     try{const response=await fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:body.toString()});if(!response.ok)throw new Error('Send failed');setState('success');form.reset();}catch{setState('error');}
   };
-  return <div className="contact-grid"><div className="contact-intro"><p>Have an interesting AI problem, a role on your team, or just want to say hi? My inbox is open.</p><a href={`mailto:${email}`} className="email-link">{email} <ArrowUpRight/></a><button className="copy-button" onClick={copy}>{copied?<Check size={16}/>:<Copy size={16}/>}<span role="status">{copied?'Email copied':'Copy email'}</span></button><div className="social-links"><a href="https://github.com/BhavyaPatel25" target="_blank" rel="noreferrer"><Github size={18}/> GitHub <ArrowUpRight size={14}/></a><a href="https://www.linkedin.com/in/bhavyapatel1000/" target="_blank" rel="noreferrer"><Linkedin size={18}/> LinkedIn <ArrowUpRight size={14}/></a><a href="tel:+14388339398">+1 438 833 9398 <ArrowUpRight size={14}/></a></div></div>
-    <form className="game-contact-form" name="contact" onSubmit={submit}>
+  return <div className="contact-grid"><div className="contact-intro ed-reveal"><p>Working on a Generative AI, RAG, or Computer Vision challenge? I’m happy to discuss a project, a research collaboration, or an opportunity on your team.</p><a href={`mailto:${email}`} className="email-link">{email} <ArrowUpRight/></a><button className="copy-button" onClick={copy}>{copied?<Check size={16}/>:<Copy size={16}/>}<span role="status">{copied?'Email copied':'Copy email'}</span></button><div className="social-links"><a href="https://github.com/BhavyaPatel25" target="_blank" rel="noreferrer"><Github size={18}/> GitHub <ArrowUpRight size={14}/></a><a href="https://www.linkedin.com/in/bhavyapatel1000/" target="_blank" rel="noreferrer"><Linkedin size={18}/> LinkedIn <ArrowUpRight size={14}/></a></div></div>
+    <form className="game-contact-form ed-reveal" name="contact" onSubmit={submit}>
       <input type="hidden" name="form-name" value="contact"/><div hidden><input type="text" name="bot-field" tabIndex={-1} autoComplete="off" aria-hidden="true"/></div>
       <div className="form-pair"><label>Your name<input required name="name" autoComplete="name" placeholder="Your name" maxLength={120}/></label><label>Email address<input required type="email" name="email" autoComplete="email" placeholder="you@example.com"/></label></div>
       <label>What are we building?<textarea required name="message" rows={4} placeholder="Tell me a little about your idea…" maxLength={5000}/></label>
